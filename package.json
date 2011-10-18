@@ -1,0 +1,31 @@
+{
+    "name": "mobicore",
+    "description": "Core Mobile Development Framework - No Frills",
+    "tags": ["mobile"],
+    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+    "version": "0.0.1",
+    "main": "index",
+    "bin": { "deckem": "./bin/deckem" },
+    
+    "engines": { "node": "0.4.x || 0.5.x" },
+    
+    "dependencies": {
+    },
+    
+    "devDependencies": {
+        "vows": "0.5.x",
+        "interleave": "0.0.x"
+    },
+    
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/DamonOehlman/mobicore.git"
+    },
+    
+    "bugs": {
+        "web": "http://github.com/DamonOehlman/mobicore/issues"
+    },
+
+    "contributors": [
+    ]
+}
