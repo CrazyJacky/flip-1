@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<title>Multi Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
+    <link href="../dist/pager.css" rel="stylesheet">
+    <style>
+    .appgroup {
+		float: left;
+		margin-right: 20px;
+		border: 1px solid black;
+		width: 300px;
+		min-height: 400px;
+	}
+	</style>
+  </head>
+  <body>
+	<div id="app1" class="appgroup">
+	    <section data-route="/">
+	      <h1 id="logo">Basic Demo</h1>
+	      <ul>
+			<li><a href="about">About</a></li>
+		  </ul>
+	    </section>
+	    <section id="about" data-route="about">
+	      <header>
+	        <button data-href="/" role="back"></button>
+	        <h1>About</h1>
+	      </header>      
+	      <h2>About</h2>
+	      <p>
+	        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
+			<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
+			that uses Backbone + CSS3.
+	      </p>
+	    </section>
+    </div>
+
+	<div id="app2" class="appgroup">
+	    <section data-route="/">
+	      <h1 id="logo">Basic Demo</h1>
+	      <ul>
+			<li><a href="about">About</a></li>
+		  </ul>
+	    </section>
+	    <section id="about" data-route="about">
+	      <header>
+	        <button data-href="/" role="back"></button>
+	        <h1>About</h1>
+	      </header>      
+	      <h2>About</h2>
+	      <p>
+	        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
+			<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
+			that uses Backbone + CSS3.
+	      </p>
+	    </section>
+    </div>
+
+    <script src="../dist/pager.js"></script>
+    <script>
+	// create the application
+	var app1 = new Pager('app1'),
+		app2 = new Pager('app2');
+	</script>
+  </body>
+</html>

@@ -805,11 +805,16 @@ var Pager = function(element, opts) {
             } // if
         } // for
         
+        // if we have an element id, then add the app id
+        if (element.id) {
+            data.appid = element.id;
+        } // if
+
         return data;
     } // getSectionData
         
     function init() {
-        var key, routables, ii;
+        var key, routables, ii, firstElement;
         
         // if the id is an object, then 
         if (typeof element == 'string' || element instanceof String) {
@@ -841,19 +846,22 @@ var Pager = function(element, opts) {
         window.addEventListener('popstate', handlePopState, false);
 
         // look for the active section
-        // TODO: make this terser
-        activate(
-            element.querySelector('section.p-active') || 
+        firstElement = element.querySelector('section.p-active') || 
             element.querySelector('section[data-route="/"]') || 
-            element.querySelector('section')
-        );
+            element.querySelector('section');
+
+        // activate the first selected element
+        activate(firstElement);
     } // init
     
     function initRoutable(routable) {
         var url = routable.attributes['data-route'].value;
         
-        eve.on(url, function(href) {
-            return activate(routable, href);
+        eve.on(url, function(href, updateState) {
+            // only handle route events for this app
+            if (this === app) {
+                return activate(routable, href, updateState);
+            } // if
         });
     } // initRoutes
     
@@ -879,10 +887,11 @@ var Pager = function(element, opts) {
     } // handleClick
     
     function handlePopState(evt) {
-        console.log(evt.state);
+        var state = evt.state || {};
         
-        if (evt.state && evt.state.route) {
-            eve(evt.state.route, app, document.location.href);
+        console.log('popped state: ', state);
+        if (state.route && ((! state.appid) || (state.appid === element.id))) {
+            eve(evt.state.route, app, document.location.href, false);
         } // if
     } // handlePopState
     
@@ -918,7 +927,10 @@ var Pager = function(element, opts) {
     
     /* exports */
     
-    function activate(section, href) {
+    function activate(section, href, updateState) {
+        // initialise update state to a valid value
+        updateState = typeof updateState == 'undefined' || updateState;
+        
         whenOk(eve(events.activating, app, section), function() {
             // get the current active section data
             var data = getSectionData(section);
@@ -934,7 +946,7 @@ var Pager = function(element, opts) {
             document.title = data.title || document.title;
                 
             // update the history
-            if (typeof history != 'undefined') {
+            if (updateState && typeof history != 'undefined') {
                 history.pushState(data, document.title, href);
             } // if
             
