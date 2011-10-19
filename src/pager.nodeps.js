@@ -11,9 +11,42 @@ var Pager = function(element, opts) {
             activating: 'pager.activating',
             data: 'pager.data'
         },
+        history = opts.history || window.history,
+        reUrl = /^(\w+\:\/\/.*\/)(.*)$/,
+        pagePath = document.location.href.replace(reUrl, '$1'),
         storage = {};
         
+    function getRelativePath(href) {
+        var pageParts = pagePath.split('/'),
+            pathParts = href.replace(reUrl, '$1').split('/');
+            
+        pathParts.splice(0, pageParts.length);
+        
+        return pathParts.join('/') + href.replace(reUrl, '$2');
+    } // getRelativePath
+        
+    function getSectionData(section) {
+        var data = {}, reValidAttr, sourceData = section.dataset;
+        
+        // if we don't have dataset data, then look through the attributes
+        if (! sourceData) {
+            sourceData = section.attribiutes;
+            reValidAttr = /^data\-/i;
+        } // if
+        
+        // get the state for the section
+        for (var key in sourceData) {
+            if ((! reValidAttr) || reValidAttr.test(key)) {
+                data[key] = sourceData[key];
+            } // if
+        } // for
+        
+        return data;
+    } // getSectionData
+        
     function init() {
+        var key, routables, ii;
+        
         // if the id is an object, then 
         if (typeof element == 'string' || element instanceof String) {
             element = document.querySelector('#' + element);
@@ -25,10 +58,23 @@ var Pager = function(element, opts) {
 
         // ensure the element has an id
         if (element.id) {
-            for (var key in events) {
+            for (key in events) {
                 events[key] += '.' + element.id;
             } // for
         } // if
+
+        // find the routable elements
+        routables = element.querySelectorAll('*[data-route]');
+        
+        // iterate through the routables and defined handlers
+        for (ii = 0; ii < routables.length; ii++) {
+            initRoutable(routables[ii]);
+        } // for
+        
+        // bind event handlers
+        element.addEventListener('click', handleClick, false);
+        element.addEventListener('touchstart', handleTouchStart, false);
+        window.addEventListener('popstate', handlePopState, false);
 
         // look for the active section
         // TODO: make this terser
@@ -38,6 +84,49 @@ var Pager = function(element, opts) {
             element.querySelector('section')
         );
     } // init
+    
+    function initRoutable(routable) {
+        var url = routable.attributes['data-route'].value;
+        
+        eve.on(url, function(href) {
+            return activate(routable, href);
+        });
+    } // initRoutes
+    
+    function isRoute(target) {
+        var routed = false;
+        
+        if (target && target.href) {
+            var path = getRelativePath(target.href),
+                routeResults = eve(path, app, path);
+
+            for (var ii = 0; routeResults && ii < routeResults.length; ii++) {
+                routed = routed || routeResults[ii];
+            } // for
+        } // if
+        
+        return routed;
+    } // isRoutable
+    
+    function handleClick(evt) {
+        if (isRoute(evt.target)) {
+            evt.preventDefault();
+        } // if
+    } // handleClick
+    
+    function handlePopState(evt) {
+        console.log(evt.state);
+        
+        if (evt.state && evt.state.route) {
+            eve(evt.state.route, app, document.location.href);
+        } // if
+    } // handlePopState
+    
+    function handleTouchStart(evt) {
+        if (isRoute(evt.target)) {
+            evt.preventDefault();
+        } // if
+    } // handleTouchStart
     
     /**
     The `whenOk` function is used to parse results from triggering an eve event
@@ -52,7 +141,7 @@ var Pager = function(element, opts) {
         // iterate through the results
         for (var ii = 0; eveResults && ii < eveResults.length; ii++) {
             ok = ok && (typeof eveResults[ii] == 'undefined' || eveResults[ii]);
-            if (typeof eveResults[ii] != 'undefined') {
+            if (ok && typeof eveResults[ii] != 'undefined') {
                 promises.push(eveResults[ii]);
             } // if
         } // for
@@ -65,18 +154,31 @@ var Pager = function(element, opts) {
     
     /* exports */
     
-    function activate(section) {
+    function activate(section, href) {
         whenOk(eve(events.activating, app, section), function() {
+            // get the current active section data
+            var data = getSectionData(section);
+
             classtweak
                 // remove the active flag from all of the sections
                 ('section', '-p-active', element)
 
                 // add the active section flag to the current section
                 (section, '+p-active');
-
+                
+            // update the document title
+            document.title = data.title || document.title;
+                
+            // update the history
+            if (typeof history != 'undefined') {
+                history.pushState(data, document.title, href);
+            } // if
+            
             // update the activate section variable
             activeSection = section;
         });
+        
+        return true;
     } // activate
     
     function data(key, value) {
@@ -102,7 +204,7 @@ var Pager = function(element, opts) {
         activate: activate,
         data: data
     };
-
+    
     // initialise the pager
     init();
   

@@ -12,11 +12,11 @@
     <section data-route="/">
       <h1 id="logo">Basic Demo</h1>
       <ul>
-		<li><a href="/settings">Settings</a></li>
-		<li><a href="/about">About</a></li>
+		<li><a href="settings">Settings</a></li>
+		<li><a href="about">About</a></li>
 	  </ul>
     </section>
-    <section id="settings">
+    <section id="settings" data-route="settings" data-title="Settings">
       <header>
         <button data-href="/" role="back"></button>
         <h1>Settings</h1>
@@ -36,7 +36,7 @@
         Think of this as a search criteria that sticks around.
       </p>
     </section>
-    <section id="about">
+    <section id="about" data-route="about">
       <header>
         <button data-href="/" role="back"></button>
         <h1>About</h1>
@@ -55,6 +55,7 @@
     <script src="../dist/pager.js"></script>
     <script>
 	eve.on('pager.activating', function() {
+		/*
 		var def = when.defer();
 		
 		setTimeout(function() {
@@ -62,6 +63,7 @@
 		}, 1000);
 		
 		return def;
+		*/
 	});
 
 	// create the application
