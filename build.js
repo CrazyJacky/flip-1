@@ -5,6 +5,8 @@ var interleave = require('interleave'),
             'eve': 'github://DmitryBaranovskiy/eve/eve.js',
             'interact': 'github://DamonOehlman/interact/interact.js',
             'classtweak': 'github://DamonOehlman/classtweak/classtweak.js',
+            'deferred': 'github://cho45/jsdeferred/jsdeferred.js',
+            'when': 'github://briancavalier/when.js/when.js',
             'underscore': 'github://documentcloud/underscore/underscore.js?v=1.1.7'
         }
     };

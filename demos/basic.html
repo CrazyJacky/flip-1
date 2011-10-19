@@ -6,22 +6,15 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
-    <link href="../dist/mobicore.css" rel="stylesheet">
+    <link href="../dist/pager.css" rel="stylesheet">
   </head>
   <body>
     <section data-route="/">
-      <h1 id="logo">Right Near Me</h1>
-      <menu>
-        <li>
-          <a data-href="/settings">Settings</a>
-        </li>
-        <li>
-          <a data-href="/about">About</a>
-        </li>
-      </menu>
-      <ul class="mc-list mc-template">
-		{{#each shops}}<li><a href="/shop/{{ index }}">{{ title }}</a></li>{{/each}}
-      </ul>
+      <h1 id="logo">Basic Demo</h1>
+      <ul>
+		<li><a href="/settings">Settings</a></li>
+		<li><a href="/about">About</a></li>
+	  </ul>
     </section>
     <section id="settings">
       <header>
@@ -50,74 +43,32 @@
       </header>      
       <h2>About</h2>
       <p>
-        This example is taken from an app I've been working on called Right Near Me.
+        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
+		<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
+		that uses Backbone + CSS3.
       </p>
-      <p>
-        Feel free to use the code as boilerplate for your own mobile web app. But I'd
-        appreciate it if you avoid lifting the design wholesale!
-      </p>
-    </section>
-    <section id="shop-1" class="coffee">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Bob's Cafe</h1>
-      </header>
-      <h1>♨ Welcome to Bob's Cafe</h1>
-      <p>Cheap coffee and snacks!</p>
-      <p>We're located in Sydney, Australia, at the CBD area, known for it's shitty coffee.</p>
-    </section>
-    <section id="shop-2" class="black">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Joe Surfboards</h1>
-      </header>
-      <h1>Joe Surfboards</h1>
-      <p>Lorem Ipsum rubbishum!</p>
-    </section>
-    <section id="shop-3" class="nature">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Natura Health Supplements</h1>
-      </header>
-      <h1>Natura Health Supplements</h1>
-      <p>Lorem Ipsum rubbishum!</p>
-    </section>
-    <section id="shop-4" class="coffee">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Buckshot Guns</h1>
-      </header>
-      <h1>Buckshot Guns</h1>
-      <p>Lorem Ipsum rubbishum!</p>
-    </section>    
-    <section id="shop-5" class="ice">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Walter's Blue Ice</h1>
-      </header>
-      <h1>Walter's Blue Ice</h1>
-      <p>Lorem Ipsum Rubbishum.</p>
-    </section>    
-    <section id="shop-6" class="ice">
-      <header>
-        <button data-href="/" role="back"></button>
-        <h1>Jesse's Blue Ice</h1>
-      </header>
-      <h1>Jesse's Blue Ice</h1>
-      <p>Lorem Ipsum Rubbishum.</p>
     </section>
     <section id="not-found">
       <h1>Whoops!</h1>
       <p>The page you're looking for cannot be found. Sorry!</p>
     </section>
-    <script src="../dist/mobicore.js"></script>
-    <script src="../dist/mobicore.handlebars.js"></script>
+    <script src="../dist/pager.js"></script>
     <script>
+	eve.on('pager.activating', function() {
+		var def = when.defer();
+		
+		setTimeout(function() {
+			def.resolve();
+		}, 1000);
+		
+		return def;
+	});
+
 	// create the application
-	App = new Mobicore.App(document.body);
+	var app = new Pager(document.body);
 	
 	// initialise the shops
-	App.data('shops', [
+	app.data('shops', [
 		{ title: 'Bob\'s Cafe', desc: '' },
 		{ title: 'Joes Surfboards', desc: '' },
 		{ title: 'Natura Health Supplements', desc: '' },

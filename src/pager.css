@@ -2,6 +2,6 @@ section {
     display: none;
 }
 
-section.mc-active {
+section.p-active {
     display: block;
 }

@@ -1,11 +1,10 @@
 {
-    "name": "mobicore",
+    "name": "pager",
     "description": "Core Mobile Development Framework - No Frills",
     "tags": ["mobile"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
     "version": "0.0.1",
     "main": "index",
-    "bin": { "deckem": "./bin/deckem" },
     
     "engines": { "node": "0.4.x || 0.5.x" },
     
@@ -19,11 +18,11 @@
     
     "repository": {
         "type": "git",
-        "url": "http://github.com/DamonOehlman/mobicore.git"
+        "url": "http://github.com/DamonOehlman/pager.git"
     },
     
     "bugs": {
-        "web": "http://github.com/DamonOehlman/mobicore/issues"
+        "web": "http://github.com/DamonOehlman/pager/issues"
     },
 
     "contributors": [
