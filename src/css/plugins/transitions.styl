@@ -1,18 +1,19 @@
 @import "../mixins/vendor"
 
 .p-container
-    section
+    section, div.p-section
         display block !important
         position absolute
-        vendor('transform', translate(100%, 0) translateZ(0))
+        width 100%;
+        transform(translate(100%, 0))
         
         &.p-active
-            vendor('transform', translate(0, 0) translateZ(0))
+            transform(translate(0, 0))
         
         &.p-out
-            vendor('transform', translate(-100%, 0) translateZ(0))
+            transform(translate(-100%, 0))
 
-section.p-in, section.p-out
+.p-in, .p-out
     -webkit-transition: -webkit-transform 0.25s ease-in-out
     -moz-transition: -moz-transform 0.25s ease-in-out
     

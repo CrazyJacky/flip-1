@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<title>Basic Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
+    <link href="../dist/pager.css" rel="stylesheet">
+    <link href="../dist/plugins/transitions.css" rel="stylesheet">
+    <link href="../dist/plugins/transitions.vert.css" rel="stylesheet">
+  </head>
+  <body>
+	<div class="p-section" data-route="first">
+		<h1>First Page</h1>
+		<ul>
+			<li><a href="">Home</a></li>
+			<li><a href="settings">Settings</a></li>
+			<li><a href="about">About</a></li>
+			<li><a href="http://www.google.com/">Google</a></li>
+		</ul>
+	</div>
+    <div class="p-section" data-route="/">
+      <h1 id="logo">Basic Demo</h1>
+      <ul>
+		<li><a href="first">First</a></li>
+		<li><a href="settings">Settings</a></li>
+		<li><a href="about">About</a></li>
+	  </ul>
+    </div>
+    <div class="p-section" id="settings" data-route="settings" data-title="Settings">
+      <header>
+        <button data-href="/" role="back"></button>
+        <h1>Settings</h1>
+      </header>
+      <form action="#">
+        <label for="keywords">Keywords</label>
+        <input type="text" name="keywords" id="keywords" placeholder="E.g.: surf coffee music" autocapitalize="off">
+      </form>
+      <p>
+        <strong>NOTE: Just submit the form and the keywords will save!</strong>
+      </p>
+      <p>
+        Keywords will narrow down the list of stores near you based on relevance/association with
+        the keywords you specify.
+      </p>
+      <p> 
+        Think of this as a search criteria that sticks around.
+      </p>
+    </div>
+    <div class="p-section" id="about" data-route="about">
+      <header>
+        <button data-href="/" role="back"></button>
+        <h1>About</h1>
+      </header>      
+      <h2>About</h2>
+      <p>
+        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
+		<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
+		that uses Backbone + CSS3.
+      </p>
+    </section>
+    <div class="p-section" id="not-found">
+      <h1>Whoops!</h1>
+      <p>The page you're looking for cannot be found. Sorry!</p>
+    </section>
+    <script src="lib/modernizr.js"></script>
+    <script src="../dist/pager.js"></script>
+    <script src="../dist/plugins/transitions.js"></script>
+    <script>
+	// create the application
+	var app = new Pager(document.body);
+	</script>
+  </body>
+</html>

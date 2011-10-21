@@ -4,18 +4,18 @@ html.p-container
 body.p-container
     height 100%
 
+// tell all sections to hide by default
+section, div.p-section
+    display none
+
 .p-container
     overflow hidden
     position relative
     margin 0
 
-    section
+    section, div.section
         display none
         min-height 100%
 
         &.p-active
             display block
-            
-body.p-container section
-    width: 100%;
-    

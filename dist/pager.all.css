@@ -4,48 +4,61 @@ html.p-container {
 body.p-container {
   height: 100%;
 }
+section,
+div.p-section {
+  display: none;
+}
 .p-container {
   overflow: hidden;
   position: relative;
   margin: 0;
 }
-.p-container section {
+.p-container section,
+.p-container div.section {
   display: none;
   min-height: 100%;
 }
-.p-container section.p-active {
+.p-container section.p-active,
+.p-container div.section.p-active {
   display: block;
 }
-body.p-container section {
-  width: 100%;
-}
 
 
-.p-container section {
+.p-container section,
+.p-container div.p-section {
   display: block !important;
   position: absolute;
+  width: 100%;
+  -webkit-transform: translate(100%, 0);
   -webkit-transform: translate(100%, 0) translateZ(0);
-  -moz-transform: translate(100%, 0) translateZ(0);
-  -o-transform: translate(100%, 0) translateZ(0);
-  -ms-transform: translate(100%, 0) translateZ(0);
+  -moz-transform: translate(100%, 0);
+  -o-transform: translate(100%, 0);
+  -ms-transform: translate(100%, 0);
+  transform: translate(100%, 0);
   transform: translate(100%, 0) translateZ(0);
 }
-.p-container section.p-active {
+.p-container section.p-active,
+.p-container div.p-section.p-active {
+  -webkit-transform: translate(0, 0);
   -webkit-transform: translate(0, 0) translateZ(0);
-  -moz-transform: translate(0, 0) translateZ(0);
-  -o-transform: translate(0, 0) translateZ(0);
-  -ms-transform: translate(0, 0) translateZ(0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
   transform: translate(0, 0) translateZ(0);
 }
-.p-container section.p-out {
+.p-container section.p-out,
+.p-container div.p-section.p-out {
+  -webkit-transform: translate(-100%, 0);
   -webkit-transform: translate(-100%, 0) translateZ(0);
-  -moz-transform: translate(-100%, 0) translateZ(0);
-  -o-transform: translate(-100%, 0) translateZ(0);
-  -ms-transform: translate(-100%, 0) translateZ(0);
+  -moz-transform: translate(-100%, 0);
+  -o-transform: translate(-100%, 0);
+  -ms-transform: translate(-100%, 0);
+  transform: translate(-100%, 0);
   transform: translate(-100%, 0) translateZ(0);
 }
-section.p-in,
-section.p-out {
+.p-in,
+.p-out {
   -webkit-transition: -webkit-transform 0.25s ease-in-out;
   -moz-transition: -moz-transform 0.25s ease-in-out;
 }

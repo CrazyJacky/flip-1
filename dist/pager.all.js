@@ -380,7 +380,9 @@ function classtweak(elements, initAction, scope) {
     if (typeof elements == 'string' || elements instanceof String) {
         elements = (scope || document).querySelectorAll(elements);
     }
-    else if (! Array.isArray(elements)) {
+    // if we don't have a splice function, then we don't have an array
+    // make it one
+    else if (! elements.splice) {
         elements = [elements];
     } // if..else
 
@@ -785,9 +787,10 @@ var Pager = function(element, opts) {
         routables = [];
         
     function getDefaultSection() {
-        var defaultElement = element.querySelector('section.p-active') || 
-            element.querySelector('section[data-route="/"]') || 
-            element.querySelector('section');
+        var defaultElement = element.querySelector('.p-active') || 
+            element.querySelector('[data-route="/"]') || 
+            element.querySelector('section') ||
+            element.querySelector('div.p-section');
         
         return {
             data: {},
@@ -941,6 +944,17 @@ var Pager = function(element, opts) {
         return routed;
     } // isRoutable
     
+    function sizeContainer(sectionEl) {
+        // update the container height
+        element.style.height = sectionEl.offsetHeight + 'px';
+        
+        /*
+        TODO: size width to take into account padding...
+        sectionEl.style.width = (element.clientWidth - 
+            Math.max(sectionEl.offsetWidth - element.clientWidth, 0)) + 'px'; 
+        */
+    }
+    
     /**
     The `whenOk` function is used to parse results from triggering an eve event
     and determining whether the event has handled ok.  If an event returns undefined,
@@ -982,6 +996,7 @@ var Pager = function(element, opts) {
                 classtweak
                     // remove the active flag from all of the sections
                     ('section', '-p-active', element)
+                    ('div.p-section', '-p-active', element)
 
                     // add the active section flag to the current section
                     (section.element, '+p-active');
@@ -993,7 +1008,7 @@ var Pager = function(element, opts) {
                 eve(events.change, app, section, activeSection);
                 
                 // update the container height to fit the page
-                element.style.height = section.element.getBoundingClientRect().height + 'px';
+                sizeContainer(section.element);
 
                 // update the activate section variable
                 activeSection = section;

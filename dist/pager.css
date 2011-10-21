@@ -4,18 +4,21 @@ html.p-container {
 body.p-container {
   height: 100%;
 }
+section,
+div.p-section {
+  display: none;
+}
 .p-container {
   overflow: hidden;
   position: relative;
   margin: 0;
 }
-.p-container section {
+.p-container section,
+.p-container div.section {
   display: none;
   min-height: 100%;
 }
-.p-container section.p-active {
+.p-container section.p-active,
+.p-container div.section.p-active {
   display: block;
-}
-body.p-container section {
-  width: 100%;
 }
