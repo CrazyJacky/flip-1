@@ -283,6 +283,10 @@
 })(this);
 
 function classtweak(elements, initAction, scope) {
+    // if elements is not defined, then return
+    if (! elements) {
+        return undefined;
+    } // if
 
     // internals
     var reSpaces = /[\s\,]+/,
@@ -773,21 +777,9 @@ var Pager = function(element, opts) {
         activeSection,
         events = {
             activating: 'pager.activating',
-            data: 'pager.data'
-        },
-        history = opts.history || window.history,
-        reUrl = /^(\w+\:\/\/.*\/)(.*)$/,
-        pagePath = document.location.href.replace(reUrl, '$1'),
-        storage = {};
-        
-    function getRelativePath(href) {
-        var pageParts = pagePath.split('/'),
-            pathParts = href.replace(reUrl, '$1').split('/');
-            
-        pathParts.splice(0, pageParts.length);
-        
-        return pathParts.join('/') + href.replace(reUrl, '$2');
-    } // getRelativePath
+            change: 'pager.change',
+            init: 'pager.init'
+        };
         
     function getSectionData(section) {
         var data = {}, reValidAttr, sourceData = section.dataset;
@@ -812,6 +804,19 @@ var Pager = function(element, opts) {
 
         return data;
     } // getSectionData
+    
+    function handleTap(evt) {
+        var target = evt.target || evt.srcElement;
+
+        // if we have a text node, then iterate up the tree
+        while (target instanceof Text) {
+            target = target.parentNode;
+        } // while
+        
+        if (isRoute(target)) {
+            evt.preventDefault();
+        } // if
+    } // eventChainer
         
     function init() {
         var key, routables, ii, firstElement;
@@ -841,22 +846,43 @@ var Pager = function(element, opts) {
         } // for
         
         // bind event handlers
-        element.addEventListener('click', handleClick, false);
-        element.addEventListener('touchstart', handleTouchStart, false);
-        window.addEventListener('popstate', handlePopState, false);
+        element.addEventListener('touchstart', handleTap, false);
+        element.addEventListener('click', handleTap, false);
+        
+        // add the container class to the container element
+        classtweak(element, '+p-container');
+        
+        // if the element is the document body, then add to the html element also
+        if (element === document.body) {
+            classtweak(element.parentNode, '+p-container');
+        } // if
+        
+        // trigger the init event
+        eve(events.init, app, element);
 
         // look for the active section
         firstElement = element.querySelector('section.p-active') || 
             element.querySelector('section[data-route="/"]') || 
             element.querySelector('section');
-
+            
         // activate the first selected element
         activate(firstElement);
+        
+        // add the container class to the container element
+        setTimeout(function() {
+            classtweak(element, '+p-ready');
+        }, 10);
     } // init
     
     function initRoutable(routable) {
-        var url = routable.attributes['data-route'].value;
+        var url = routable.getAttribute('data-route');
         
+        // ensure the url is valid
+        if (url === '' || url === '/') {
+            url = 'home';
+        } // if
+        
+        // register the event handler
         eve.on(url, function(href, updateState) {
             // only handle route events for this app
             if (this === app) {
@@ -869,8 +895,8 @@ var Pager = function(element, opts) {
         var routed = false;
         
         if (target && target.href) {
-            var path = getRelativePath(target.href),
-                routeResults = eve(path, app, path);
+            var path = target ? target.getAttribute('href') || 'home' : '',
+                routeResults = eve(path, app, target.href);
 
             for (var ii = 0; routeResults && ii < routeResults.length; ii++) {
                 routed = routed || routeResults[ii];
@@ -879,27 +905,6 @@ var Pager = function(element, opts) {
         
         return routed;
     } // isRoutable
-    
-    function handleClick(evt) {
-        if (isRoute(evt.target)) {
-            evt.preventDefault();
-        } // if
-    } // handleClick
-    
-    function handlePopState(evt) {
-        var state = evt.state || {};
-        
-        console.log('popped state: ', state);
-        if (state.route && ((! state.appid) || (state.appid === element.id))) {
-            eve(evt.state.route, app, document.location.href, false);
-        } // if
-    } // handlePopState
-    
-    function handleTouchStart(evt) {
-        if (isRoute(evt.target)) {
-            evt.preventDefault();
-        } // if
-    } // handleTouchStart
     
     /**
     The `whenOk` function is used to parse results from triggering an eve event
@@ -931,7 +936,10 @@ var Pager = function(element, opts) {
         // initialise update state to a valid value
         updateState = typeof updateState == 'undefined' || updateState;
         
-        whenOk(eve(events.activating, app, section), function() {
+        // set the section margin top to offset it's position on the page
+        // section.style['margin-top'] = '-' + section.offsetTop + 'px';
+        
+        whenOk(eve(events.activating, app, section, activeSection), function() {
             // get the current active section data
             var data = getSectionData(section);
 
@@ -945,40 +953,18 @@ var Pager = function(element, opts) {
             // update the document title
             document.title = data.title || document.title;
                 
-            // update the history
-            if (updateState && typeof history != 'undefined') {
-                history.pushState(data, document.title, href);
-            } // if
-            
             // update the activate section variable
             activeSection = section;
+
+            // trigger the activated event
+            eve(events.change, app, section, data, href);
         });
         
         return true;
     } // activate
     
-    function data(key, value) {
-        if (typeof value == 'undefined') {
-            return this.storage[name];
-        }
-        else {
-            // update the storage value
-            storage[name] = {
-                value: value,
-                updated: new Date().getTime()
-            };
-
-            // trigger a data update
-            eve(events.data, app, key, value);
-
-            // return the reference to the app
-            return app;
-        } // if..else
-    } // data
-    
     app = {
-        activate: activate,
-        data: data
+        activate: activate
     };
     
     // initialise the pager

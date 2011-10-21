@@ -1,7 +1,15 @@
-section {
-    display: none;
+html.p-container,
+body.p-container {
+  height: 100%;
 }
-
-section.p-active {
-    display: block;
+.p-container {
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+}
+.p-container section {
+  display: none;
+}
+.p-container section.p-active {
+  display: block;
 }

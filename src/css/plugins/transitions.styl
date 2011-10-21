@@ -1,0 +1,26 @@
+vendor(prop, args)
+    -webkit-{prop} args
+    -moz-{prop} args
+    -o-{prop} args
+    -ms-{prop} args
+    {prop} args
+
+.p-container
+    section
+        display block !important
+        position absolute
+        width 100%
+        top 0
+        left 0
+        vendor('transform', translate(100%, 0) translateZ(0))
+        
+        &.p-active
+            vendor('transform', translate(0, 0) translateZ(0))
+        
+        &.p-out
+            vendor('transform', translate(-100%, 0) translateZ(0))
+
+section.p-in, section.p-out
+    -webkit-transition: -webkit-transform 0.25s ease-in-out
+    -moz-transition: -moz-transform 0.25s ease-in-out
+    

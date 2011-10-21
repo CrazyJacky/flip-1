@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link href="../dist/pager.css" rel="stylesheet">
+    <link href="../dist/plugins/transitions.css" rel="stylesheet">
   </head>
   <body>
+	<section data-route="first">
+		<h1>First Page</h1>
+		<ul>
+			<li><a href="">Home</a></li>
+			<li><a href="settings">Settings</a></li>
+			<li><a href="about">About</a></li>
+			<li><a href="http://www.google.com/">Google</a></li>
+		</ul>
+	</section>
     <section data-route="/">
       <h1 id="logo">Basic Demo</h1>
       <ul>
+		<li><a href="first">First</a></li>
 		<li><a href="settings">Settings</a></li>
 		<li><a href="about">About</a></li>
 	  </ul>
@@ -52,20 +64,10 @@
       <h1>Whoops!</h1>
       <p>The page you're looking for cannot be found. Sorry!</p>
     </section>
+    <script src="lib/modernizr.js"></script>
     <script src="../dist/pager.js"></script>
+    <script src="../dist/plugins/transitions.js"></script>
     <script>
-	eve.on('pager.activating', function() {
-		/*
-		var def = when.defer();
-		
-		setTimeout(function() {
-			def.resolve();
-		}, 1000);
-		
-		return def;
-		*/
-	});
-
 	// create the application
 	var app = new Pager(document.body);
 	</script>
