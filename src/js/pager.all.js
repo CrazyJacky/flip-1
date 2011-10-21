@@ -1,0 +1,2 @@
+//= pager
+//= plugins/transitions
