@@ -16,8 +16,8 @@
         }, false);
     } // if
     
-    eve.on('pager.activating', function(newpage, oldpage) {
-        classtweak(newpage, '+p-in -p-out');
-        classtweak(oldpage, '-p-in +p-out');
+    eve.on('pager.change', function(newpage, oldpage) {
+        classtweak(newpage.element, '+p-in -p-out');
+        classtweak((oldpage || {}).element, '-p-in +p-out');
     });
 })();
