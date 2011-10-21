@@ -1,4 +1,6 @@
-html.p-container,
+html.p-container {
+  min-height: 100%;
+}
 body.p-container {
   height: 100%;
 }
@@ -9,7 +11,11 @@ body.p-container {
 }
 .p-container section {
   display: none;
+  min-height: 100%;
 }
 .p-container section.p-active {
   display: block;
+}
+body.p-container section {
+  width: 100%;
 }

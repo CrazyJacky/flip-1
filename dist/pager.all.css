@@ -1,4 +1,6 @@
-html.p-container,
+html.p-container {
+  min-height: 100%;
+}
 body.p-container {
   height: 100%;
 }
@@ -9,18 +11,19 @@ body.p-container {
 }
 .p-container section {
   display: none;
+  min-height: 100%;
 }
 .p-container section.p-active {
   display: block;
+}
+body.p-container section {
+  width: 100%;
 }
 
 
 .p-container section {
   display: block !important;
   position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
   -webkit-transform: translate(100%, 0) translateZ(0);
   -moz-transform: translate(100%, 0) translateZ(0);
   -o-transform: translate(100%, 0) translateZ(0);

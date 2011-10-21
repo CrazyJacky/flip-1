@@ -137,7 +137,7 @@ var Pager = function(element, opts) {
         });
         
         // register the event handler
-        eve.on(url, function() {
+        eve.on(url + (element.id ? '.' + element.id : ''), function() {
             return this === app;
         });
     } // initRoutes
@@ -147,7 +147,7 @@ var Pager = function(element, opts) {
         
         if (target && target.href) {
             var path = target ? target.getAttribute('href') || 'home' : '',
-                routeResults = eve(path, app, target.href);
+                routeResults = eve(path + (element.id ? '.' + element.id : ''), app, target.href);
                 
             // reset the promises
             promises = [];
@@ -223,6 +223,9 @@ var Pager = function(element, opts) {
 
                 // trigger the activated event
                 eve(events.change, app, section, activeSection);
+                
+                // update the container height to fit the page
+                element.style.height = section.element.getBoundingClientRect().height + 'px';
 
                 // update the activate section variable
                 activeSection = section;

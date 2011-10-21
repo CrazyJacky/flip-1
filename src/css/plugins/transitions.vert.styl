@@ -1,0 +1,11 @@
+@import "../mixins/vendor"
+
+.p-container
+    section
+        vendor('transform', translate(0, 100%) translateZ(0))
+        
+        &.p-active
+            vendor('transform', translate(0, 0) translateZ(0))
+        
+        &.p-out
+            vendor('transform', translate(0, -100%) translateZ(0))

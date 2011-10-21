@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<title>Basic Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
+    <link href="../dist/pager.css" rel="stylesheet">
+    <link href="../dist/plugins/transitions.css" rel="stylesheet">
+    <link href="../dist/plugins/transitions.vert.css" rel="stylesheet">
+    <style>
+	body {
+		margin: 0;
+	}
+
+	header {
+		background: #333;
+		color: white;
+	}
+	
+	h1 {
+		margin: 0px;
+		padding: 10px;
+	}
+	
+	section {
+		padding: 10px;
+	}
+	</style>
+  </head>
+  <body>
+	<header>
+		<h1>Header</h1>
+	</header>
+	<div id='pager'>
+		<section data-route="first">
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="settings">Settings</a></li>
+				<li><a href="about">About</a></li>
+				<li><a href="http://www.google.com/">Google</a></li>
+			</ul>
+		</section>
+	    <section data-route="/">
+	      <ul>
+			<li><a href="first">First</a></li>
+			<li><a href="settings">Settings</a></li>
+			<li><a href="about">About</a></li>
+		  </ul>
+	    </section>
+	    <section id="settings" data-route="settings" data-title="Settings">
+	      <form action="#">
+	        <label for="keywords">Keywords</label>
+	        <input type="text" name="keywords" id="keywords" placeholder="E.g.: surf coffee music" autocapitalize="off">
+	      </form>
+	      <p>
+	        <strong>NOTE: Just submit the form and the keywords will save!</strong>
+	      </p>
+	      <p>
+	        Keywords will narrow down the list of stores near you based on relevance/association with
+	        the keywords you specify.
+	      </p>
+	      <p> 
+	        Think of this as a search criteria that sticks around.
+	      </p>
+	    </section>
+	    <section id="about" data-route="about">
+	      <h2>About</h2>
+	      <p>
+	        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
+			<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
+			that uses Backbone + CSS3.
+	      </p>
+	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis leo tellus, ullamcorper eget ultricies vitae, porttitor vel velit. Vestibulum sollicitudin libero et sapien facilisis a condimentum urna auctor. Nullam faucibus molestie nulla tempor tempor. Cras neque ipsum, pellentesque et tempus at, luctus sed tortor. Etiam est dolor, sagittis quis suscipit vel, adipiscing hendrerit enim. Duis dui sem, lacinia vitae porttitor at, feugiat nec mauris. Sed ultricies convallis hendrerit. Ut eros arcu, auctor et laoreet sed, porta nec nibh. Ut ultrices, justo id malesuada consectetur, enim ligula placerat nisl, eget egestas massa mauris in est. Curabitur mattis nibh ac magna semper at euismod nulla tincidunt.</p>
+		  <p>Sed sed porta lectus. Cras fringilla rhoncus felis, eu ullamcorper lacus commodo vel. Suspendisse massa lectus, lobortis in dictum vel, pulvinar non leo. Nulla facilisi. Ut tincidunt tempor nibh eu faucibus. Donec nec orci nunc. Donec consequat leo eu justo ultrices tristique. Donec non est purus, sed dapibus sem. Proin congue elit at ipsum blandit non scelerisque libero congue.</p>
+	    </section>
+	    <section id="not-found">
+	      <p>The page you're looking for cannot be found. Sorry!</p>
+	    </section>
+	</div>
+    <script src="lib/modernizr.js"></script>
+    <script src="../dist/pager.js"></script>
+    <script src="../dist/plugins/transitions.js"></script>
+    <script>
+	// create the application
+	var app = new Pager('pager');
+	</script>
+  </body>
+</html>

@@ -1,17 +1,9 @@
-vendor(prop, args)
-    -webkit-{prop} args
-    -moz-{prop} args
-    -o-{prop} args
-    -ms-{prop} args
-    {prop} args
+@import "../mixins/vendor"
 
 .p-container
     section
         display block !important
         position absolute
-        width 100%
-        top 0
-        left 0
         vendor('transform', translate(100%, 0) translateZ(0))
         
         &.p-active
