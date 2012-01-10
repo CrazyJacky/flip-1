@@ -12,14 +12,14 @@ var interleave = require('interleave'),
     
 // build each of the css files
 interleave(['src/css', 'src/js'], {
-    multi: 'pass',
+	multi: 'pass',
     path: 'dist',
     config: config
 });    
 
 // build each of the css files
 interleave(['src/css/plugins', 'src/js/plugins'], {
-    multi: 'pass',
+	multi: 'pass',
     path: 'dist/plugins',
     config: config
 });    

@@ -3,10 +3,12 @@
     "description": "Core Mobile Development Framework - No Frills",
     "tags": ["mobile"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "index",
     
-    "engines": { "node": "0.4.x || 0.5.x" },
+  "engines": {
+    "node": ">= 0.4.x < 0.7.0"
+  },
     
     "dependencies": {
     },
@@ -22,7 +24,7 @@
     },
     
     "bugs": {
-        "web": "http://github.com/DamonOehlman/pager/issues"
+        "url": "http://github.com/DamonOehlman/pager/issues"
     },
 
     "contributors": [
