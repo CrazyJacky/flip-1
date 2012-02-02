@@ -1,9 +1,9 @@
 {
-    "name": "pager",
-    "description": "Core Mobile Development Framework - No Frills",
-    "tags": ["mobile"],
+    "name": "flipr",
+    "description": "Event Driven Single Page Apps Unframework",
+    "tags": ["mobile", "bootstrap"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "main": "index",
     
   "engines": {
@@ -20,11 +20,11 @@
     
     "repository": {
         "type": "git",
-        "url": "http://github.com/DamonOehlman/pager.git"
+        "url": "http://github.com/DamonOehlman/flipr.git"
     },
     
     "bugs": {
-        "url": "http://github.com/DamonOehlman/pager/issues"
+        "url": "http://github.com/DamonOehlman/flipr/issues"
     },
 
     "contributors": [

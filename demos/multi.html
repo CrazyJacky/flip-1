@@ -1,75 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title>Multi Demo</title>
+	<title>Basic Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
     <link href="../dist/flipr.css" rel="stylesheet">
-	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-responsive.css">
     <link href="../dist/plugins/transitions.css" rel="stylesheet">
-    <link href="../dist/plugins/transitions.vert.css" rel="stylesheet">
     <style>
-    .appgroup {
-		float: left;
-		margin-right: 20px;
-		border: 1px solid black;
-		width: 300px;
-		min-height: 400px;
-		overflow: hidden;
-	}
-	</style>
+      body {
+        padding-top: 20px;
+      }
+    </style>
   </head>
   <body>
-	<div id="app1" class="appgroup">
-	    <section data-route="/">
-	      <h1 id="logo">Basic Demo</h1>
-	      <ul>
-			<li><a href="about">About</a></li>
-		  </ul>
-	    </section>
-	    <section id="about" data-route="about">
-	      <header>
-	        <button data-href="/" role="back"></button>
-	        <h1>About</h1>
-	      </header>      
-	      <h2>About</h2>
-	      <p>
-	        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
-			<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
-			that uses Backbone + CSS3.
-	      </p>
-	    </section>
+      <div class="container-fluid">
+          <div class="row-fluid">
+              <div id="app1" class="span6">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                      <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target="#app1 .nav-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Section 1</a>
+                        <div class="nav-collapse">
+                          <ul class="nav">
+                            <li class="active"><a href="home">Home</a></li>
+                            <li><a href="about">About</a></li>
+                          </ul>
+                        </div><!--/.nav-collapse -->
+                      </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <section data-route="/">
+                        <p>This is section 1.</p>
+                      <ul>
+                    	<li><a href="about">About</a></li>
+                      </ul>
+                    </section>
+                    <section data-route="about">
+                      <h2>About</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pharetra eros id quam vestibulum faucibus. In a libero ipsum, eu pulvinar nibh. Nulla non congue lacus. Pellentesque ligula risus, mollis vel placerat vel, consectetur ac ante. Vestibulum convallis fringilla est quis accumsan. Aliquam mollis neque eu turpis euismod eget blandit lectus lacinia. Proin purus dolor, scelerisque sed tempor volutpat, aliquet in lectus. Fusce euismod mauris sed enim suscipit id laoreet arcu imperdiet.</p>
+                      <p>Vestibulum vel aliquam lectus. Quisque ipsum nibh, auctor mollis dictum eget, sodales ut lectus. Vivamus fermentum dictum odio quis hendrerit. Nam cursus varius metus, a varius lorem mollis sit amet. Nulla imperdiet ultrices lorem non egestas. Praesent faucibus magna vel dui tempus eget commodo sem lacinia. Quisque iaculis magna nec metus suscipit dapibus pellentesque felis convallis. Donec diam nibh, varius sed viverra suscipit, bibendum sed lacus. Aenean eu nunc et ipsum viverra ullamcorper. Quisque lacus eros, suscipit sed sollicitudin eget, lacinia sed metus.</p>
+                    </section>
+                </div>
+            </div>
+            
+            <div id="app2" class="span6">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                      <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target="#app2 .nav-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">Section 2</a>
+                        <div class="nav-collapse">
+                          <ul class="nav">
+                            <li class="active"><a href="home">Home</a></li>
+                            <li><a href="about">About</a></li>
+                          </ul>
+                        </div><!--/.nav-collapse -->
+                      </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <section data-route="/">
+                        <p>This is section 2.</p>
+                      <ul>
+                    	<li><a href="about">About</a></li>
+                      </ul>
+                    </section>
+                    <section data-route="about">
+                      <h2>About</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pharetra eros id quam vestibulum faucibus. In a libero ipsum, eu pulvinar nibh. Nulla non congue lacus. Pellentesque ligula risus, mollis vel placerat vel, consectetur ac ante. Vestibulum convallis fringilla est quis accumsan. Aliquam mollis neque eu turpis euismod eget blandit lectus lacinia. Proin purus dolor, scelerisque sed tempor volutpat, aliquet in lectus. Fusce euismod mauris sed enim suscipit id laoreet arcu imperdiet.</p>
+                      <p>Vestibulum vel aliquam lectus. Quisque ipsum nibh, auctor mollis dictum eget, sodales ut lectus. Vivamus fermentum dictum odio quis hendrerit. Nam cursus varius metus, a varius lorem mollis sit amet. Nulla imperdiet ultrices lorem non egestas. Praesent faucibus magna vel dui tempus eget commodo sem lacinia. Quisque iaculis magna nec metus suscipit dapibus pellentesque felis convallis. Donec diam nibh, varius sed viverra suscipit, bibendum sed lacus. Aenean eu nunc et ipsum viverra ullamcorper. Quisque lacus eros, suscipit sed sollicitudin eget, lacinia sed metus.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
     </div>
-
-	<div id="app2" class="appgroup">
-	    <section data-route="/">
-	      <h1 id="logo">Basic Demo</h1>
-	      <ul>
-			<li><a href="about">About</a></li>
-		  </ul>
-	    </section>
-	    <section id="about" data-route="about">
-	      <header>
-	        <button data-href="/" role="back"></button>
-	        <h1>About</h1>
-	      </header>      
-	      <h2>About</h2>
-	      <p>
-	        This example is modified from <a href="http://twitter.com/julio_ody">Julio Ody's</a> lightweight
-			<a href="https://github.com/juliocesar/buildmobile-example">mobile application example</a> 
-			that uses Backbone + CSS3.
-	      </p>
-	    </section>
-    </div>
-
+    <script src="../lib/modernizr.js"></script>
     <script src="../dist/flipr.js"></script>
+    <script src="../dist/plugins/bootstrap.js"></script>
     <script src="../dist/plugins/transitions.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
     <script>
 	// create the application
-	var app1 = new Flipr('app1'),
-		app2 = new Flipr('app2');
+	var app1 = new Flipr('app1', { multi: true }),
+		app2 = new Flipr('app2', { multi: true });
 	</script>
   </body>
 </html>

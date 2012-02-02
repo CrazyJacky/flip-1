@@ -1195,7 +1195,7 @@ var Flipr = function(element, opts) {
         
     function handleTap(evt) {
         var target = evt.target || evt.srcElement,
-            path;
+            routeData;
 
         // if we have a text node, then iterate up the tree
         while (target instanceof Text) {
@@ -1203,12 +1203,15 @@ var Flipr = function(element, opts) {
         } // while
         
         // get the route for the target
-        path = getRoutePath(target);
+        routeData = isRoute(target);
         
         // if we have a path, then activate the path and prevent the default action
-        if (path) {
-            activate(path, evt);
+        if (routeData.route) {
             evt.preventDefault();
+
+            if ((!activeSection) || (activeSection.path !== routeData.path)) {
+                activate(routeData.path, evt);
+            }
         }
     } // eventChainer
         
@@ -1306,35 +1309,44 @@ var Flipr = function(element, opts) {
         });
     } // initRoutes
     
-    function getRoutePath(target) {
-        var routed = false,
+    function isRoute(target) {
+        var route = false,
             path, routeResults;
         
         if (target && target.href) {
             // determine the path
             path = target ? target.getAttribute('href') || 'home' : '';
             
-            // check the route results (can we proceed?)
-            routeResults = eve(path + (element.id ? '.' + element.id : ''), app, target.href);
-                
-            // reset the promises
-            promises = [];
+            // if we have an active section, and the path matches the target path, then we have routed
+            route = activeSection && activeSection.path === path;
+            
+            // if this isn't a match for the current path, check if anything matches
+            if (! route) {
+                // check the route results (can we proceed?)
+                routeResults = eve(path + (element.id ? '.' + element.id : ''), app, target.href);
 
-            // update the routed state
-            routed = routeResults && routeResults.length;
+                // reset the promises
+                promises = [];
 
-            for (var ii = 0; routed && ii < routeResults.length; ii++) {
-                if (typeof routeResults[ii] != 'undefined') {
-                    // update the routed flag
-                    routed = routed && routeResults[ii];
-                    
-                    // add to the list of current promises
-                    promises.push(routeResults[ii]);
-                } // if
-            } // for
+                // update the routed state
+                route = routeResults && routeResults.length;
+
+                for (var ii = 0; route && ii < routeResults.length; ii++) {
+                    if (typeof routeResults[ii] != 'undefined') {
+                        // update the routed flag
+                        route = route && routeResults[ii];
+
+                        // add to the list of current promises
+                        promises.push(routeResults[ii]);
+                    } // if
+                } // for
+            }
         } // if
         
-        return routed ? path : '';
+        return {
+            route: route,
+            path: path
+        };
     } // isRoutable
     
     function sizeContainer(sectionEl) {
@@ -1404,6 +1416,7 @@ var Flipr = function(element, opts) {
 
                 // update the activate section variable
                 activeSection = section;
+                activeSection.path = path;
             });
         }
     } // activate
