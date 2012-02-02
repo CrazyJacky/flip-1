@@ -3,13 +3,13 @@
   display: block !important;
   position: absolute;
   width: 100%;
-  -webkit-transform: translate(100%, 0);
-  -webkit-transform: translate(100%, 0) translateZ(0);
-  -moz-transform: translate(100%, 0);
-  -o-transform: translate(100%, 0);
-  -ms-transform: translate(100%, 0);
-  transform: translate(100%, 0);
-  transform: translate(100%, 0) translateZ(0);
+  -webkit-transform: translate(110%, 0);
+  -webkit-transform: translate(110%, 0) translateZ(0);
+  -moz-transform: translate(110%, 0);
+  -o-transform: translate(110%, 0);
+  -ms-transform: translate(110%, 0);
+  transform: translate(110%, 0);
+  transform: translate(110%, 0) translateZ(0);
 }
 .flipr section.p-active,
 .flipr .section.p-active {
@@ -24,13 +24,13 @@
 }
 .flipr section.p-out,
 .flipr .section.p-out {
-  -webkit-transform: translate(-100%, 0);
-  -webkit-transform: translate(-100%, 0) translateZ(0);
-  -moz-transform: translate(-100%, 0);
-  -o-transform: translate(-100%, 0);
-  -ms-transform: translate(-100%, 0);
-  transform: translate(-100%, 0);
-  transform: translate(-100%, 0) translateZ(0);
+  -webkit-transform: translate(-110%, 0);
+  -webkit-transform: translate(-110%, 0) translateZ(0);
+  -moz-transform: translate(-110%, 0);
+  -o-transform: translate(-110%, 0);
+  -ms-transform: translate(-110%, 0);
+  transform: translate(-110%, 0);
+  transform: translate(-110%, 0) translateZ(0);
 }
 .p-in,
 .p-out {

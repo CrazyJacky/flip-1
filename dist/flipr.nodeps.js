@@ -41,20 +41,26 @@ var Flipr = function(element, opts) {
     } // getSection
         
     function handleTap(evt) {
-        var target = evt.target || evt.srcElement;
+        var target = evt.target || evt.srcElement,
+            path;
 
         // if we have a text node, then iterate up the tree
         while (target instanceof Text) {
             target = target.parentNode;
         } // while
         
-        if (isRoute(target)) {
+        // get the route for the target
+        path = getRoutePath(target);
+        
+        // if we have a path, then activate the path and prevent the default action
+        if (path) {
+            activate(path, evt);
             evt.preventDefault();
-        } // if
+        }
     } // eventChainer
         
     function init() {
-        var key, routables, ii, firstElement;
+        var key, routables, ii, firstElement, target;
         
         // if the id is an object, then 
         if (typeof element == 'string' || element instanceof String) {
@@ -71,7 +77,7 @@ var Flipr = function(element, opts) {
                 events[key] += '.' + element.id;
             } // for
         } // if
-
+        
         // find the routable elements
         routables = element.querySelectorAll('*[data-route]');
         
@@ -80,9 +86,12 @@ var Flipr = function(element, opts) {
             initRoutable(routables[ii]);
         } // for
         
+        // find the event target
+        target = opts.multi ? element : document.body;
+        
         // bind event handlers
-        (opts.eventTarget || element).addEventListener('touchstart', handleTap, false);
-        (opts.eventTarget || element).addEventListener('click', handleTap, false);
+        target.addEventListener('touchstart', handleTap, false);
+        target.addEventListener('click', handleTap, false);
         
         // add the container class to the container element
         classtweak(element, '+flipr');
@@ -144,12 +153,16 @@ var Flipr = function(element, opts) {
         });
     } // initRoutes
     
-    function isRoute(target) {
-        var routed = false;
+    function getRoutePath(target) {
+        var routed = false,
+            path, routeResults;
         
         if (target && target.href) {
-            var path = target ? target.getAttribute('href') || 'home' : '',
-                routeResults = eve(path + (element.id ? '.' + element.id : ''), app, target.href);
+            // determine the path
+            path = target ? target.getAttribute('href') || 'home' : '';
+            
+            // check the route results (can we proceed?)
+            routeResults = eve(path + (element.id ? '.' + element.id : ''), app, target.href);
                 
             // reset the promises
             promises = [];
@@ -166,18 +179,14 @@ var Flipr = function(element, opts) {
                     promises.push(routeResults[ii]);
                 } // if
             } // for
-            
-            if (routed) {
-                activate(path);
-            } // if
         } // if
         
-        return routed;
+        return routed ? path : '';
     } // isRoutable
     
     function sizeContainer(sectionEl) {
         // update the container height
-        element.style.height = sectionEl.offsetHeight + 'px';
+        // element.style.height = sectionEl.offsetHeight + 'px';
         
         /*
         TODO: size width to take into account padding...
@@ -211,7 +220,7 @@ var Flipr = function(element, opts) {
     
     /* exports */
     
-    function activate(path) {
+    function activate(path, sourceEvent) {
         // get the current active section data
         var section = getSection(path) || getDefaultSection(),
             data = section.data || {};
@@ -223,7 +232,7 @@ var Flipr = function(element, opts) {
             // set the section margin top to offset it's position on the page
             // section.style['margin-top'] = '-' + section.offsetTop + 'px';
 
-            whenOk(eve(events.activating, app, section, activeSection), function() {
+            whenOk(eve(events.activating, app, section, activeSection, sourceEvent), function() {
                 classtweak
                     // remove the active flag from all of the sections
                     ('section, .section', '-p-active', element)
@@ -235,7 +244,7 @@ var Flipr = function(element, opts) {
                 document.title = data.title || document.title;
 
                 // trigger the activated event
-                eve(events.change, app, section, activeSection);
+                eve(events.change, app, section, activeSection, sourceEvent);
                 
                 // update the container height to fit the page
                 sizeContainer(section.element);
