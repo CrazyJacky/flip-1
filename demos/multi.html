@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="red" />    
-    <link href="../dist/flipr.css" rel="stylesheet">
+    <link href="../dist/flip.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/bootstrap-responsive.css">
     <link href="../dist/plugins/transitions.css" rel="stylesheet">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             
-            <div id="app2" class="span6">
+            <div id="app2" class="span6 flipper">
                 <div class="navbar">
                     <div class="navbar-inner">
                       <div class="container-fluid">
@@ -89,7 +89,7 @@
         </div>
     </div>
     <script src="lib/modernizr.js"></script>
-    <script src="../dist/flipr.js"></script>
+    <script src="../dist/flip.js"></script>
     <script src="../dist/plugins/bootstrap.js"></script>
     <script src="../dist/plugins/transitions.js"></script>
     <script src="assets/js/jquery.js"></script>
@@ -97,8 +97,8 @@
     <script src="assets/js/bootstrap-collapse.js"></script>
     <script>
 	// create the application
-	var app1 = new Flipr('app1', { multi: true }),
-		app2 = new Flipr('app2', { multi: true });
+	var app1 = new Flipper('app1', { multi: true }),
+		app2 = new Flipper('app2', { multi: true });
 	</script>
   </body>
 </html>

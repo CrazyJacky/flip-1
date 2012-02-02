@@ -1,5 +1,5 @@
-.flipr section,
-.flipr .section {
+.flipper section,
+.flipper .section {
   display: block !important;
   position: absolute;
   width: 100%;
@@ -11,8 +11,8 @@
   transform: translate(110%, 0);
   transform: translate(110%, 0) translateZ(0);
 }
-.flipr section.p-active,
-.flipr .section.p-active {
+.flipper section.p-active,
+.flipper .section.p-active {
   position: relative;
   -webkit-transform: translate(0, 0);
   -webkit-transform: translate(0, 0) translateZ(0);
@@ -22,8 +22,8 @@
   transform: translate(0, 0);
   transform: translate(0, 0) translateZ(0);
 }
-.flipr section.p-out,
-.flipr .section.p-out {
+.flipper section.p-out,
+.flipper .section.p-out {
   -webkit-transform: translate(-110%, 0);
   -webkit-transform: translate(-110%, 0) translateZ(0);
   -moz-transform: translate(-110%, 0);

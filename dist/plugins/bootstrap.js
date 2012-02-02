@@ -1,10 +1,10 @@
 (function() {
-    eve.on('flipr.change', function(newpage, oldpage, evt) {
-        if (evt && newpage && typeof jQuery != 'undefined') {
-            var target = evt.target || evt.srcElement;
-            
-            $(target).parent('li').siblings('li').removeClass('active');
-            $(target).parent('li').addClass('active');
-         }
+    eve.on('flip.change', function(newpage, oldpage) {
+        if (newpage && newpage.container && newpage.path) {
+            $('.navbar a[href="' + newpage.path + '"]', newpage.container).each(function() {
+                $(this).parent('li').siblings('li').removeClass('active');
+                $(this).parent('li').addClass('active');
+            });
+        }
     });
 })();

@@ -1,3 +1,3 @@
-//= flipr
+//= flip
 //= plugins/bootstrap
 //= plugins/transitions

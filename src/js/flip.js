@@ -2,4 +2,4 @@
 //= classtweak!
 //= when!
 
-//= flipr.nodeps
+//= flip.nodeps

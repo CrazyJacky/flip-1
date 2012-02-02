@@ -1,20 +1,20 @@
-html.flipr {
+html.flipper {
   min-height: 100%;
 }
-body.flipr {
+body.flipper {
   height: 100%;
 }
-.flipr {
+.flipper {
   overflow: hidden;
   position: relative;
   margin: 0;
 }
-.flipr section,
-.flipr .section {
+.flipper section,
+.flipper .section {
   display: none;
   min-height: 100%;
 }
-.flipr section.p-active,
-.flipr .section.p-active {
+.flipper section.p-active,
+.flipper .section.p-active {
   display: block;
 }

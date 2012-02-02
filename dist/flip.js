@@ -1151,7 +1151,7 @@ define(function() {
 
 
 
-var Flipr = function(element, opts) {
+var Flipper = function(element, opts) {
     // initialise opts
     opts = opts || {};
     opts.title = opts.title || 'Untitled App';
@@ -1161,9 +1161,9 @@ var Flipr = function(element, opts) {
     var app,
         activeSection,
         events = {
-            activating: 'flipr.activating',
-            change: 'flipr.change',
-            init: 'flipr.init'
+            activating: 'flip.activating',
+            change: 'flip.change',
+            init: 'flip.init'
         },
         promises = [],
         reValidAttr = /^data\-/i,
@@ -1174,7 +1174,7 @@ var Flipr = function(element, opts) {
         var defaultElement = element.querySelector('.p-active') || 
             element.querySelector('[data-route="/"]') || 
             element.querySelector('section') ||
-            element.querySelector('.flipr .section');
+            element.querySelector('.flipper .section');
         
         return {
             data: {},
@@ -1222,12 +1222,11 @@ var Flipr = function(element, opts) {
         if (typeof element == 'string' || element instanceof String) {
             element = document.querySelector('#' + element.replace(reLeadingHash, ''));
         } // if
+        
+        // default to the document body if the element isn't specified
+        element = element || document.body;
 
-        if ((! element) || (! element.querySelector)) {
-            throw new Error('A containing element is required to create a new app');
-        } // if
-
-        // ensure the element has an id
+        // if the element has an id, then include the events in the key
         if (element.id) {
             for (key in events) {
                 events[key] += '.' + element.id;
@@ -1250,11 +1249,11 @@ var Flipr = function(element, opts) {
         target.addEventListener('click', handleTap, false);
         
         // add the container class to the container element
-        classtweak(element, '+flipr');
+        classtweak(element, '+flipper');
         
         // if the element is the document body, then add to the html element also
         if (element === document.body) {
-            classtweak(element.parentNode, '+flipr');
+            classtweak(element.parentNode, '+flipper');
         } // if
         
         // trigger the init event
@@ -1299,8 +1298,10 @@ var Flipr = function(element, opts) {
         // add to the routable data
         routables.push(section = {
             data: data,
+            path: url,
             regex: new RegExp('^' + url),
-            element: routable
+            element: routable,
+            container: element
         });
         
         // register the event handler
@@ -1416,7 +1417,6 @@ var Flipr = function(element, opts) {
 
                 // update the activate section variable
                 activeSection = section;
-                activeSection.path = path;
             });
         }
     } // activate
@@ -1425,47 +1425,9 @@ var Flipr = function(element, opts) {
         activate: activate
     };
     
-    // initialise the flipr
+    // initialise the flipper
     init();
   
     // return the app
     return app;
 };
-
-
-(function() {
-    eve.on('flipr.change', function(newpage, oldpage, evt) {
-        if (evt && newpage && typeof jQuery != 'undefined') {
-            var target = evt.target || evt.srcElement;
-            
-            $(target).parent('li').siblings('li').removeClass('active');
-            $(target).parent('li').addClass('active');
-         }
-    });
-})();
-
-(function() {
-    // if modernizr is not available, then abort
-    if (typeof Modernizr != 'undefined') {
-        // from the modernizr example
-        var transEndEventNames = {
-                'WebkitTransition' : 'webkitTransitionEnd',
-                'MozTransition'    : 'transitionend',
-                'OTransition'      : 'oTransitionEnd',
-                'msTransition'     : 'msTransitionEnd', // maybe?
-                'transition'       : 'transitionEnd'
-            },
-            transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
-
-        window.addEventListener(transEndEventName, function(evt) {
-            classtweak(evt.target, '-p-in -p-out');
-        }, false);
-    } // if
-    
-    eve.on('flipr.change', function(newpage, oldpage) {
-        if (oldpage && oldpage !== newpage) {
-            classtweak(newpage.element, '+p-in -p-out');
-            classtweak(oldpage.element, '-p-in +p-out');
-        } // if
-    });
-})();
