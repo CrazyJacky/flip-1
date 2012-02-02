@@ -1,13 +1,14 @@
 @import "../mixins/vendor"
 
-.p-container
-    section, div.p-section
+.flipr
+    section, .section
         display block !important
         position absolute
         width 100%;
         transform(translate(100%, 0))
         
         &.p-active
+            position relative
             transform(translate(0, 0))
         
         &.p-out

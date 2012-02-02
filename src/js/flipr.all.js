@@ -1,2 +1,2 @@
-//= pager
+//= flipr
 //= plugins/transitions

@@ -2,4 +2,4 @@
 //= classtweak!
 //= when!
 
-//= pager.nodeps
+//= flipr.nodeps

@@ -1,4 +1,4 @@
-var Pager = function(element, opts) {
+var Flipr = function(element, opts) {
     // initialise opts
     opts = opts || {};
     opts.title = opts.title || 'Untitled App';
@@ -8,19 +8,20 @@ var Pager = function(element, opts) {
     var app,
         activeSection,
         events = {
-            activating: 'pager.activating',
-            change: 'pager.change',
-            init: 'pager.init'
+            activating: 'flipr.activating',
+            change: 'flipr.change',
+            init: 'flipr.init'
         },
         promises = [],
         reValidAttr = /^data\-/i,
+        reLeadingHash = /^\#/,
         routables = [];
         
     function getDefaultSection() {
         var defaultElement = element.querySelector('.p-active') || 
             element.querySelector('[data-route="/"]') || 
             element.querySelector('section') ||
-            element.querySelector('div.p-section');
+            element.querySelector('.flipr .section');
         
         return {
             data: {},
@@ -57,7 +58,7 @@ var Pager = function(element, opts) {
         
         // if the id is an object, then 
         if (typeof element == 'string' || element instanceof String) {
-            element = document.querySelector('#' + element);
+            element = document.querySelector('#' + element.replace(reLeadingHash, ''));
         } // if
 
         if ((! element) || (! element.querySelector)) {
@@ -80,15 +81,15 @@ var Pager = function(element, opts) {
         } // for
         
         // bind event handlers
-        element.addEventListener('touchstart', handleTap, false);
-        element.addEventListener('click', handleTap, false);
+        (opts.eventTarget || element).addEventListener('touchstart', handleTap, false);
+        (opts.eventTarget || element).addEventListener('click', handleTap, false);
         
         // add the container class to the container element
-        classtweak(element, '+p-container');
+        classtweak(element, '+flipr');
         
         // if the element is the document body, then add to the html element also
         if (element === document.body) {
-            classtweak(element.parentNode, '+p-container');
+            classtweak(element.parentNode, '+flipr');
         } // if
         
         // trigger the init event
@@ -225,8 +226,7 @@ var Pager = function(element, opts) {
             whenOk(eve(events.activating, app, section, activeSection), function() {
                 classtweak
                     // remove the active flag from all of the sections
-                    ('section', '-p-active', element)
-                    ('div.p-section', '-p-active', element)
+                    ('section, .section', '-p-active', element)
 
                     // add the active section flag to the current section
                     (section.element, '+p-active');
@@ -250,7 +250,7 @@ var Pager = function(element, opts) {
         activate: activate
     };
     
-    // initialise the pager
+    // initialise the flipr
     init();
   
     // return the app

@@ -16,8 +16,8 @@
         }, false);
     } // if
     
-    eve.on('pager.change', function(newpage, oldpage) {
-        if (oldpage) {
+    eve.on('flipr.change', function(newpage, oldpage) {
+        if (oldpage && oldpage !== newpage) {
             classtweak(newpage.element, '+p-in -p-out');
             classtweak(oldpage.element, '-p-in +p-out');
         } // if

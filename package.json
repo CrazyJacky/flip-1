@@ -14,8 +14,8 @@
     },
     
     "devDependencies": {
-        "interleave": "0.0.x",
-        "stylus": "0.x.x"
+        "interleave": "0.1.x",
+        "stylus": "*"
     },
     
     "repository": {

@@ -1,12 +1,12 @@
 // ┌──────────────────────────────────────────────────────────────────────────────────────┐ \\
-// │ Eve 0.3.3 - JavaScript Events Library                                                │ \\
+// │ Eve 0.3.4 - JavaScript Events Library                                                │ \\
 // ├──────────────────────────────────────────────────────────────────────────────────────┤ \\
 // │ Copyright (c) 2008-2011 Dmitry Baranovskiy (http://dmitry.baranovskiy.com/)          │ \\
 // │ Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license. │ \\
 // └──────────────────────────────────────────────────────────────────────────────────────┘ \\
 
 (function (glob) {
-    var version = "0.3.3",
+    var version = "0.3.4",
         has = "hasOwnProperty",
         separator = /[\.\/]/,
         wildcard = "*",
@@ -42,6 +42,7 @@
                 indexed = [],
                 queue = {},
                 out = [],
+                ce = current_event,
                 errors = [];
             current_event = name;
             stop = 0;
@@ -66,16 +67,14 @@
                     if (l.zIndex == indexed[z]) {
                         out.push(l.apply(scope, args));
                         if (stop) {
-                            stop = oldstop;
-                            return out;
+                            break;
                         }
                         do {
                             z++;
                             l = queue[indexed[z]];
                             l && out.push(l.apply(scope, args));
                             if (stop) {
-                                stop = oldstop;
-                                return out;
+                                break;
                             }
                         } while (l)
                     } else {
@@ -84,12 +83,12 @@
                 } else {
                     out.push(l.apply(scope, args));
                     if (stop) {
-                        stop = oldstop;
-                        return out;
+                        break;
                     }
                 }
             }
             stop = oldstop;
+            current_event = ce;
             return out.length ? out : null;
         };
     /*\
@@ -291,7 +290,6 @@
         var f2 = function () {
             var res = f.apply(this, arguments);
             eve.unbind(name, f2);
-
             return res;
         };
         return eve.on(name, f2);
@@ -306,8 +304,9 @@
     eve.toString = function () {
         return "You are running Eve " + version;
     };
-    (typeof module != "undefined" && module.exports) ? (module.exports = eve) : (glob.eve = eve);
+    (typeof module != "undefined" && module.exports) ? (module.exports = eve) : (typeof define != "undefined" ? (define("eve", [], function() { return eve; })) : (glob.eve = eve));
 })(this);
+
 
 function classtweak(elements, initAction, scope) {
     // if elements is not defined, then return
@@ -422,18 +421,18 @@ function classtweak(elements, initAction, scope) {
     return initAction ? classtweak : tweak;
 } // classtweak
 
-/**
- * @license Copyright (c) 2011 Brian Cavalier
- * LICENSE: see the LICENSE.txt file. If file is missing, this file is subject
- * to the MIT License at: http://www.opensource.org/licenses/mit-license.php.
- */
+/** @license MIT License (c) copyright B Cavalier & J Hann */
 
 /**
- * when.js
+ * when
  * A lightweight CommonJS Promises/A and when() implementation
  *
- * @version 0.11.0
- * @author brian@hovercraftstudios.com
+ * when is part of the cujo.js family of libraries (http://cujojs.com/)
+ *
+ * Licensed under the MIT License at:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @version 0.11.1
  */
 
 (function(define) {
@@ -546,29 +545,44 @@ define(function() {
          * @param [callback] {Function} resolution handler
          * @param [errback] {Function} rejection handler
          * @param [progback] {Function} progress handler
+         *
+         * @throws {Error} if any argument is not null, undefined, or a Function
          */
         _then = function unresolvedThen(callback, errback, progback) {
-            var d = defer();
+            // Check parameters and fail immediately if any supplied parameter
+            // is not null/undefined and is also not a function.
+            // That is, any non-null/undefined parameter must be a function.
+            var arg, deferred, i = arguments.length;
+            while(i) {
+                arg = arguments[--i];
+                if (arg != null && typeof arg != 'function') throw new Error('callback is not a function');
+            }
+
+            deferred = defer();
 
             listeners.push({
-                deferred: d,
+                deferred: deferred,
                 resolve: callback,
                 reject: errback
             });
 
             progback && progressHandlers.push(progback);
 
-            return d.promise;
+            return deferred.promise;
         };
 
         /**
-         * Registers a handler for this {@link Deferred}'s {@link Promise}
+         * Registers a handler for this {@link Deferred}'s {@link Promise}.  Even though all arguments
+         * are optional, each argument that *is* supplied must be null, undefined, or a Function.
+         * Any other value will cause an Error to be thrown.
          *
          * @memberOf Promise
          *
-         * @param callback {Function}
-         * @param [errback] {Function}
-         * @param [progback] {Function}
+         * @param [callback] {Function} resolution handler
+         * @param [errback] {Function} rejection handler
+         * @param [progback] {Function} progress handler
+         *
+         * @throws {Error} if any argument is not null, undefined, or a Function
          */
         function then(callback, errback, progback) {
             return _then(callback, errback, progback);
@@ -801,10 +815,10 @@ define(function() {
     function when(promiseOrValue, callback, errback, progressHandler) {
         // Get a promise for the input promiseOrValue
         // See promise()
-        var inputPromise = promise(promiseOrValue);
+        var trustedPromise = promise(promiseOrValue);
 
         // Register promise handlers
-        return inputPromise.then(callback, errback, progressHandler);
+        return trustedPromise.then(callback, errback, progressHandler);
     }
 
     /**
@@ -1137,7 +1151,7 @@ define(function() {
 
 
 
-var Pager = function(element, opts) {
+var Flipr = function(element, opts) {
     // initialise opts
     opts = opts || {};
     opts.title = opts.title || 'Untitled App';
@@ -1147,19 +1161,20 @@ var Pager = function(element, opts) {
     var app,
         activeSection,
         events = {
-            activating: 'pager.activating',
-            change: 'pager.change',
-            init: 'pager.init'
+            activating: 'flipr.activating',
+            change: 'flipr.change',
+            init: 'flipr.init'
         },
         promises = [],
         reValidAttr = /^data\-/i,
+        reLeadingHash = /^\#/,
         routables = [];
         
     function getDefaultSection() {
         var defaultElement = element.querySelector('.p-active') || 
             element.querySelector('[data-route="/"]') || 
             element.querySelector('section') ||
-            element.querySelector('div.p-section');
+            element.querySelector('.flipr .section');
         
         return {
             data: {},
@@ -1196,7 +1211,7 @@ var Pager = function(element, opts) {
         
         // if the id is an object, then 
         if (typeof element == 'string' || element instanceof String) {
-            element = document.querySelector('#' + element);
+            element = document.querySelector('#' + element.replace(reLeadingHash, ''));
         } // if
 
         if ((! element) || (! element.querySelector)) {
@@ -1219,15 +1234,15 @@ var Pager = function(element, opts) {
         } // for
         
         // bind event handlers
-        element.addEventListener('touchstart', handleTap, false);
-        element.addEventListener('click', handleTap, false);
+        (opts.eventTarget || element).addEventListener('touchstart', handleTap, false);
+        (opts.eventTarget || element).addEventListener('click', handleTap, false);
         
         // add the container class to the container element
-        classtweak(element, '+p-container');
+        classtweak(element, '+flipr');
         
         // if the element is the document body, then add to the html element also
         if (element === document.body) {
-            classtweak(element.parentNode, '+p-container');
+            classtweak(element.parentNode, '+flipr');
         } // if
         
         // trigger the init event
@@ -1364,8 +1379,7 @@ var Pager = function(element, opts) {
             whenOk(eve(events.activating, app, section, activeSection), function() {
                 classtweak
                     // remove the active flag from all of the sections
-                    ('section', '-p-active', element)
-                    ('div.p-section', '-p-active', element)
+                    ('section, .section', '-p-active', element)
 
                     // add the active section flag to the current section
                     (section.element, '+p-active');
@@ -1389,9 +1403,36 @@ var Pager = function(element, opts) {
         activate: activate
     };
     
-    // initialise the pager
+    // initialise the flipr
     init();
   
     // return the app
     return app;
 };
+
+
+(function() {
+    // if modernizr is not available, then abort
+    if (typeof Modernizr != 'undefined') {
+        // from the modernizr example
+        var transEndEventNames = {
+                'WebkitTransition' : 'webkitTransitionEnd',
+                'MozTransition'    : 'transitionend',
+                'OTransition'      : 'oTransitionEnd',
+                'msTransition'     : 'msTransitionEnd', // maybe?
+                'transition'       : 'transitionEnd'
+            },
+            transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
+
+        window.addEventListener(transEndEventName, function(evt) {
+            classtweak(evt.target, '-p-in -p-out');
+        }, false);
+    } // if
+    
+    eve.on('flipr.change', function(newpage, oldpage) {
+        if (oldpage) {
+            classtweak(newpage.element, '+p-in -p-out');
+            classtweak(oldpage.element, '-p-in +p-out');
+        } // if
+    });
+})();
