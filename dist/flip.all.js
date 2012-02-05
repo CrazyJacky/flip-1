@@ -1161,9 +1161,9 @@ var Flipper = function(element, opts) {
     var app,
         activeSection,
         events = {
-            activating: 'flip.activating',
-            change: 'flip.change',
-            init: 'flip.init'
+            activating: 'flipper.activating',
+            change: 'flipper.change',
+            init: 'flipper.init'
         },
         promises = [],
         reValidAttr = /^data\-/i,
@@ -1434,7 +1434,7 @@ var Flipper = function(element, opts) {
 
 
 (function() {
-    eve.on('flip.change', function(newpage, oldpage) {
+    eve.on('flipper.change', function(newpage, oldpage) {
         if (newpage && newpage.container && newpage.path) {
             $('.navbar a[href="' + newpage.path + '"]', newpage.container).each(function() {
                 $(this).parent('li').siblings('li').removeClass('active');
@@ -1462,7 +1462,7 @@ var Flipper = function(element, opts) {
         }, false);
     } // if
     
-    eve.on('flip.change', function(newpage, oldpage) {
+    eve.on('flipper.change', function(newpage, oldpage) {
         if (oldpage && oldpage !== newpage) {
             classtweak(newpage.element, '+p-in -p-out');
             classtweak(oldpage.element, '-p-in +p-out');

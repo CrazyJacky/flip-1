@@ -7,8 +7,8 @@ var interleave = require('interleave'),
         'classtweak': 'github://DamonOehlman/classtweak/classtweak.js',
         'when': 'github://briancavalier/when.js/when.js'
     };
-
-task('default', function() {
+    
+task('core', function() {
     // build each of the css files
     interleave(['src/css', 'src/js'], {
         aliases: aliases
@@ -22,3 +22,5 @@ task('plugins', function() {
         aliases: aliases
     });
 });
+
+task('default', ['core', 'plugins']);

@@ -1,5 +1,5 @@
 (function() {
-    eve.on('flip.change', function(newpage, oldpage) {
+    eve.on('flipper.change', function(newpage, oldpage) {
         if (newpage && newpage.container && newpage.path) {
             $('.navbar a[href="' + newpage.path + '"]', newpage.container).each(function() {
                 $(this).parent('li').siblings('li').removeClass('active');

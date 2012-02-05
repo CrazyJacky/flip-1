@@ -13,7 +13,7 @@
         window.addEventListener('popstate', handlePopState, false);
     } // if
 
-    eve.on('flip.change', function(section, data, href) {
+    eve.on('flipper.change', function(section, data, href) {
         // window.history.pushState(data, document.title, href);
     });
 })();

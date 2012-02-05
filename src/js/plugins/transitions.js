@@ -16,7 +16,7 @@
         }, false);
     } // if
     
-    eve.on('flip.change', function(newpage, oldpage) {
+    eve.on('flipper.change', function(newpage, oldpage) {
         if (oldpage && oldpage !== newpage) {
             classtweak(newpage.element, '+p-in -p-out');
             classtweak(oldpage.element, '-p-in +p-out');

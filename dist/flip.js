@@ -1161,9 +1161,9 @@ var Flipper = function(element, opts) {
     var app,
         activeSection,
         events = {
-            activating: 'flip.activating',
-            change: 'flip.change',
-            init: 'flip.init'
+            activating: 'flipper.activating',
+            change: 'flipper.change',
+            init: 'flipper.init'
         },
         promises = [],
         reValidAttr = /^data\-/i,
