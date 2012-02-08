@@ -308,6 +308,35 @@
 })(this);
 
 
+// classtweak 0.1.0 - Simple DOM element class manipulator
+//
+// Copyright (c) 2011 Damon Oehlman (http://www.sidelab.com/)
+// Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
+
+/*\
+ * classtweak
+ [ function ]
+ **
+ * The `classtweak` function can be used in multiple ways
+ **
+ > Arguments (option 1)
+ **
+ - elements (string|array) string that is passed to the Selectors API, or an array of DOM elements to update classes on
+ - initAction (string) class modifier string
+ - scope (DOMElement) target dom element for querySelector calls (default: document)
+ **
+ = (function) returns the classtweak function for chaining
+ **
+ **
+ > Usage
+ | // add the button class to all anchor tags
+ | classtweak('a', '+button');
+ > Arguments (option 2)
+ **
+ - elements (string|array) as per option 1
+ **
+ = (function) returns the @tweak function to enable class manipulation on the specified elements
+\*/
 function classtweak(elements, initAction, scope) {
     // if elements is not defined, then return
     if (! elements) {
@@ -334,7 +363,20 @@ function classtweak(elements, initAction, scope) {
                 instructionHandlers[foundIdx < 0 ? '+' : '-'](current, target, foundIdx);
             }
         };
-    
+        
+    /*\
+     * tweak
+     [ function ]
+     **
+     * Apply the specified actions to the previously specified elements
+     **
+     > Arguments
+     **
+     - actions (string)
+     **
+     = (function) return the `tweak` function for chaining
+     **
+    \*/
     function tweak(actions) {
         // itereate through the elements
         for (var elIdx = elements.length; elIdx--; ) {
@@ -404,7 +446,9 @@ function classtweak(elements, initAction, scope) {
     
     // check the elements
     if (typeof elements == 'string' || elements instanceof String) {
-        elements = (scope || document).querySelectorAll(elements);
+        // if we have a qsa function defined (for speed or backwards compatibility) use that
+        // otherwise default to the querySelector API
+        elements = typeof qsa == 'function' ? qsa(elements, scope) : (scope || document).querySelectorAll(elements);
     }
     // if we don't have a splice function, then we don't have an array
     // make it one
@@ -1431,3 +1475,40 @@ var Flipper = function(element, opts) {
     // return the app
     return app;
 };
+
+(function() {
+    eve.on('flipper.change', function(newpage, oldpage) {
+        if (newpage && newpage.container && newpage.path) {
+            $('.navbar a[href="' + newpage.path + '"]', newpage.container).each(function() {
+                $(this).parent('li').siblings('li').removeClass('active');
+                $(this).parent('li').addClass('active');
+            });
+        }
+    });
+})();
+
+(function() {
+    // if modernizr is not available, then abort
+    if (typeof Modernizr != 'undefined') {
+        // from the modernizr example
+        var transEndEventNames = {
+                'WebkitTransition' : 'webkitTransitionEnd',
+                'MozTransition'    : 'transitionend',
+                'OTransition'      : 'oTransitionEnd',
+                'msTransition'     : 'msTransitionEnd', // maybe?
+                'transition'       : 'transitionEnd'
+            },
+            transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
+
+        window.addEventListener(transEndEventName, function(evt) {
+            classtweak(evt.target, '-p-in -p-out');
+        }, false);
+    } // if
+    
+    eve.on('flipper.change', function(newpage, oldpage) {
+        if (oldpage && oldpage !== newpage) {
+            classtweak(newpage.element, '+p-in -p-out');
+            classtweak(oldpage.element, '-p-in +p-out');
+        } // if
+    });
+})();

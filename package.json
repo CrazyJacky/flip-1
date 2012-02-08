@@ -15,7 +15,8 @@
     
     "devDependencies": {
         "interleave": "0.1.x",
-        "stylus": "*"
+        "stylus": "*",
+        "uglify-js": "*"
     },
     
     "repository": {

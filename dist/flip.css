@@ -18,3 +18,45 @@ body.flipper {
 .flipper .section.p-active {
   display: block;
 }
+
+
+.flipper section,
+.flipper .section {
+  display: block !important;
+  position: absolute;
+  width: 100%;
+  -webkit-transform: translate(110%, 0);
+  -webkit-transform: translate(110%, 0) translateZ(0);
+  -moz-transform: translate(110%, 0);
+  -o-transform: translate(110%, 0);
+  -ms-transform: translate(110%, 0);
+  transform: translate(110%, 0);
+  transform: translate(110%, 0) translateZ(0);
+}
+.flipper section.p-active,
+.flipper .section.p-active {
+  position: relative;
+  -webkit-transform: translate(0, 0);
+  -webkit-transform: translate(0, 0) translateZ(0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  transform: translate(0, 0) translateZ(0);
+}
+.flipper section.p-out,
+.flipper .section.p-out {
+  -webkit-transform: translate(-110%, 0);
+  -webkit-transform: translate(-110%, 0) translateZ(0);
+  -moz-transform: translate(-110%, 0);
+  -o-transform: translate(-110%, 0);
+  -ms-transform: translate(-110%, 0);
+  transform: translate(-110%, 0);
+  transform: translate(-110%, 0) translateZ(0);
+}
+.p-in,
+.p-out {
+  -webkit-transition: -webkit-transform 0.25s ease-in-out;
+  -moz-transition: -moz-transform 0.25s ease-in-out;
+}
+

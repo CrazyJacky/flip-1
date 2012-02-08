@@ -10,8 +10,9 @@ var interleave = require('interleave'),
     
 task('core', function() {
     // build each of the css files
-    interleave(['src/css', 'src/js'], {
-        aliases: aliases
+    interleave(['src/css/flip.css', 'src/js/flip.js'], {
+        aliases: aliases,
+        after: ['uglify']
     });    
 });
 
