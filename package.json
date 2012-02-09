@@ -1,14 +1,14 @@
 {
-    "name": "flipr",
+    "name": "flip",
     "description": "Event Driven Single Page Apps Unframework",
     "tags": ["mobile", "bootstrap"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
     "version": "0.1.0",
     "main": "index",
     
-  "engines": {
-    "node": ">= 0.4.x < 0.7.0"
-  },
+    "engines": {
+        "node": ">= 0.4.x < 0.7.0"
+    },
     
     "dependencies": {
     },
@@ -21,11 +21,11 @@
     
     "repository": {
         "type": "git",
-        "url": "http://github.com/DamonOehlman/flipr.git"
+        "url": "http://github.com/DamonOehlman/flip.git"
     },
     
     "bugs": {
-        "url": "http://github.com/DamonOehlman/flipr/issues"
+        "url": "http://github.com/DamonOehlman/flip/issues"
     },
 
     "contributors": [

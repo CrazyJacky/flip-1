@@ -2,6 +2,4 @@
 //= classtweak!
 //= when!
 
-//= core/main
-//= core/bootstrap
-//= core/transitions
+//= flip.core
