@@ -7,6 +7,7 @@
 .flipper .section {
   display: none;
   min-height: 100%;
+  width: 100%;
 }
 .flipper section.flip-active,
 .flipper .section.flip-active {

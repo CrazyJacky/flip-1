@@ -1,5 +1,6 @@
 var reTrailingExtension = /\.\w+$/,
     reLeadingDot = /^\./,
+    reLeadingHash = /^\#/,
     convertedUrls = {},
     reValidAttr = /^data\-(.*)$/i;
     

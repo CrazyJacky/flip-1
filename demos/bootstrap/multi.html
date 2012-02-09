@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title>Basic Demo</title>
+    <title>Basic Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,7 +42,7 @@
                     <section data-route="/">
                         <p>This is section 1.</p>
                       <ul>
-                    	<li><a href="about">About</a></li>
+                        <li><a href="about">About</a></li>
                       </ul>
                     </section>
                     <section data-route="about">
@@ -76,7 +76,7 @@
                     <section data-route="/">
                         <p>This is section 2.</p>
                       <ul>
-                    	<li><a href="about">About</a></li>
+                        <li><a href="about">About</a></li>
                       </ul>
                     </section>
                     <section data-route="about">
@@ -91,13 +91,14 @@
     <script src="../modernizr.custom.js"></script>
     <script src="../../dist/flip.js"></script>
     <script src="../../dist/plugins/bootstrap.js"></script>
+    <script src="../../dist/plugins/history.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap-transition.js"></script>
     <script src="assets/js/bootstrap-collapse.js"></script>
     <script>
-	// create the application
-	var app1 = new Flipper('app1', { multi: true }),
-		app2 = new Flipper('app2', { multi: true });
-	</script>
+    // create the application
+    flip('#app1', { multi: true });
+    flip('#app2', { multi: true });
+    </script>
   </body>
 </html>

@@ -5,7 +5,7 @@ function Flipper(element, opts) {
     
     // if the id is an object, then 
     if (typeof element == 'string' || element instanceof String) {
-        element = qsa('#' + element.replace(reLeadingHash, ''));
+        element = qsa('#' + element.replace(reLeadingHash, ''))[0];
     } // if
     
     // default to the document body if the element isn't specified
@@ -47,7 +47,7 @@ Flipper.prototype.activate = function(route, promises, sourceEvent) {
 
         when.all(promises || [], function() {
             // remove the active flag from all of the sections
-            classtweak('.flip-active', '-flip-active', this.element);
+            classtweak('.flip-active', '-flip-active', flipper.element);
 
             // fire the activating event and check the result
             // in the same way as the flip.to events 

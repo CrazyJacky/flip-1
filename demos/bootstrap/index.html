@@ -18,7 +18,7 @@
       }
     </style>
   </head>
-  <body class="flipper">
+  <body class="flipper" onload="flip()">
       <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container-fluid">
@@ -45,6 +45,7 @@
         		<li><a href="about.html">About</a></li>
         		<li><a href="settings.html">Settings</a></li>
         		<li><a href="deferred.html">Deferred Example</a></li>
+        		<li><a href="multi.html">Multi Flip Example</a></li>
         	  </ul>
             </div>
         </section>
@@ -74,9 +75,5 @@
     <script src="../../dist/plugins/history.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap-collapse.js"></script>
-    <script>
-	// create the application
-	var app = flip(document.body);
-	</script>
   </body>
 </html>
