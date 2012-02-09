@@ -33,7 +33,7 @@ Example Usage
 
 For the moment, I'd recommend checking out the `Bootstrap demos`__ and having a look through the source if you are feeling brave.  I'll provide more detail here soon...
 
-__ /DamonOehlman/flip/tree/master/demos/bootstrap
+__ /DamonOehlman/flip/tree/master/demos
 
 
 
