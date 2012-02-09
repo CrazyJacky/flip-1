@@ -28,6 +28,15 @@ After looking at the various frameworks out there and then combining that with m
 
 __ https://github.com/DmitryBaranovskiy/eve
 
+Example Usage
+=============
+
+For the moment, I'd recommend checking out the `Bootstrap demos`__ and having a look through the source if you are feeling brave.  I'll provide more detail here soon...
+
+__ /DamonOehlman/flip/tree/master/demos/bootstrap
+
+
+
 Your Choice and Your Feedback
 =============================
 
@@ -36,12 +45,3 @@ You should be free to choose.  Backbone goes some of the way to encouraging choi
 Somewhere between 90% and 99% of you will probably think this is just silly and MV* style patterns are the answer. That's fair enough.  If you love MVC then we should chat over beer sometime and you can convince me why.  If, however, you do think this is an idea *worth further exploration*, then please let me know and throw some constructive criticism my way (issues, tweets, etc).
 
 I think I would definitely benefit from some external perspective :)
-
-Example Usage
-=============
-
-For the moment, I'd recommend checking out the `Bootstrap demos`__ and having a look through the source if you are feeling brave.
-
-__ /DamonOehlman/flip/tree/master/demos/bootstrap
-
-
