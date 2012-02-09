@@ -20,13 +20,22 @@ While we aren't there yet, it's not hard to see that you can really do a lot wit
 
 __ http://backbonejs.org/
 
-Unlike just about everyone else on the web (it would seem), I really haven't fallen for Backone.  I can see it's merits, but despite the praises being sung from the rooftops for building apps using MVC (or MV*) patterns, it's really not my bag.  Patterns are important yes, but the client-side web is highly evented and trying to wrap that chaotic evented world with highly structured patterns like MVC just seems, well, not quite right.
+Unlike just about everyone else on the web (it would seem) though, I really haven't fallen for Backone.  I can see it's merits, but despite the praises being sung from the rooftops for building apps using MVC (or MV*) patterns, it's really not my bag.  Patterns are important yes, but the client-side web is highly evented and trying to wrap that chaotic evented world with structured patterns like MVC just seems, well, not quite right.
 
-So I created flip as an **experiment**.  After looking at the various frameworks out there and then combining that with my love for the absolutely awesome eventing library, `Eve`__ I set out to create something different - a small "unframework" that did **substantially less** than all the other options out there.  
+So I created flip as an **experiment**.  
+
+After looking at the various frameworks out there and then combining that with my love for the absolutely awesome eventing library, `Eve`__ I set out to create something different - a small "unframework" that did **substantially less** than all the other options out there.  
 
 __ https://github.com/DmitryBaranovskiy/eve
 
-You should be free to choose.  Backbone goes some of the way to encouraging choice, but I think you should have yet more freedom.  Flip represents an attempt at providing you that freedom.  Somewhere between 90% and 99% of you will probably think this is just silly, and that's fair enough.  If you love MVC then we should chat over beer sometime and you can convince me why.  If, however, you do think this is a good idea, then please let me know and throw some constructive criticism my way in the way of issues, etc.  I think I would definitely benefit from some external perspective :)
+Your Choice and Your Feedback
+=============================
+
+You should be free to choose.  Backbone goes some of the way to encouraging choice, but I think you should have yet more freedom.  Flip represents an attempt at providing you that freedom.  
+
+Somewhere between 90% and 99% of you will probably think this is just silly and MV* style patterns are the answer. That's fair enough.  If you love MVC then we should chat over beer sometime and you can convince me why.  If, however, you do think this is an idea *worth further exploration*, then please let me know and throw some constructive criticism my way (issues, tweets, etc).
+
+I think I would definitely benefit from some external perspective :)
 
 Example Usage
 =============
