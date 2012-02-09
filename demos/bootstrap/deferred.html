@@ -108,7 +108,7 @@
 	});
 	
 	// include this code to see how defereds can delay a page change
-	eve.on('flip.activating', function() {
+	eve.on('flip.to', function() {
 		var def = when.defer();
 		
 		setTimeout(function() {
