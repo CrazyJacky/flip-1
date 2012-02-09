@@ -3,6 +3,24 @@ var reTrailingExtension = /\.\w+$/,
     convertedUrls = {},
     reValidAttr = /^data\-(.*)$/i;
     
+function _eventPass(results, promises) {
+    // mark the route as valid if we have route results
+    var valid = results && results.length;
+
+    // now do a more detailed check of those results
+    for (var ii = 0; valid && ii < results.length; ii++) {
+        if (typeof results[ii] != 'undefined') {
+            // update the routed flag
+            valid = valid && results[ii];
+
+            // add to the list of current promises
+            promises.push(results[ii]);
+        } // if
+    } // for
+    
+    return valid;
+}
+    
 function _getTargetUrl(target) {
     return target.getAttribute('href') || 'home';
 }

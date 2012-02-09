@@ -1233,10 +1233,30 @@ var flip = (function() {
     })();
 
     
+    var _flippers = {};
+    
     var reTrailingExtension = /\.\w+$/,
         reLeadingDot = /^\./,
         convertedUrls = {},
         reValidAttr = /^data\-(.*)$/i;
+        
+    function _eventPass(results, promises) {
+        // mark the route as valid if we have route results
+        var valid = results && results.length;
+    
+        // now do a more detailed check of those results
+        for (var ii = 0; valid && ii < results.length; ii++) {
+            if (typeof results[ii] != 'undefined') {
+                // update the routed flag
+                valid = valid && results[ii];
+    
+                // add to the list of current promises
+                promises.push(results[ii]);
+            } // if
+        } // for
+        
+        return valid;
+    }
         
     function _getTargetUrl(target) {
         return target.getAttribute('href') || 'home';
@@ -1370,6 +1390,7 @@ var flip = (function() {
         
         // initialise the events
         this.events = {
+            activating: 'flip.activating',
             changed: 'flip.changed',
             init: 'flip.init'
         };
@@ -1379,7 +1400,9 @@ var flip = (function() {
     }
     
     Flipper.prototype.activate = function(route, promises, sourceEvent) {
-        var flipper = this;
+        var flipper = this,
+            activated,
+            activationPromises = [];
         
         // if the route is a string, then look for the route that matches
         if (typeof route == 'string' || route instanceof String) {
@@ -1394,21 +1417,30 @@ var flip = (function() {
             // section.style['margin-top'] = '-' + section.offsetTop + 'px';
     
             when.all(promises || [], function() {
-                classtweak
-                    // remove the active flag from all of the sections
-                    ('section, .section', '-flip-active -flip-in +flip-out', this.element)
-                    
-                    // make the new section active
-                    (route.element, '+flip-active +flip-in -flip-out');
-                    
-                // update the document title
-                // document.title = data.title || document.title;
+                // remove the active flag from all of the sections
+                classtweak('.flip-active', '-flip-active', this.element);
     
-                // trigger the activated event
-                eve(flipper.events.changed, flipper, route, flipper.activeRoute, sourceEvent);
+                // fire the activating event and check the result
+                // in the same way as the flip.to events 
+                activated = _eventPass(
+                    eve(flipper.events.activating, flipper, route, flipper.activeRoute, sourceEvent),
+                    activationPromises
+                );
                 
-                // update the activate section variable
-                flipper.activeRoute = route;
+                // if (and once) activation is successful, continue
+                when.all([activated].concat(activationPromises), function() {
+                    // make the new section active
+                    classtweak(route.element, '+flip-active');
+    
+                    // update the document title
+                    // document.title = data.title || document.title;
+    
+                    // trigger the activated event
+                    eve(flipper.events.changed, flipper, route, flipper.activeRoute, sourceEvent);
+    
+                    // update the activate section variable
+                    flipper.activeRoute = route;
+                });
             });
         }
     };
@@ -1504,19 +1536,8 @@ var flip = (function() {
                 // TODO: consider firing the flip.to event regardless
                 routeResults = route ? eve(eventName, this, route, this.activeRoute, sourceEvent) : null;
     
-                // mark the route as valid if we have route results
-                valid = routeResults && routeResults.length;
-    
-                // now do a more detailed check of those results
-                for (var ii = 0; valid && ii < routeResults.length; ii++) {
-                    if (typeof routeResults[ii] != 'undefined') {
-                        // update the routed flag
-                        valid = valid && routeResults[ii];
-    
-                        // add to the list of current promises
-                        promises.push(routeResults[ii]);
-                    } // if
-                } // for
+                // check event validity
+                valid = _eventPass(routeResults, promises);
             }
         } // if
         
@@ -1532,7 +1553,19 @@ var flip = (function() {
     };
 
     
-    return function(element, opts) {
-        return new Flipper(element, opts);
+    function _flip(element, opts) {
+        var flipper = new Flipper(element, opts);
+        
+        // register the flipper in the list of flippers
+        _flippers[flipper.id] = flipper;
+        
+        // return the new flipper
+        return flipper;
+    }
+    
+    _flip.get = function(id) {
+        return _flippers[id];
     };
+    
+    return _flip;
 })();

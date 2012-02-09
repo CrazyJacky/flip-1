@@ -1,19 +1,29 @@
-(function() {
-    // if we support the history api
-    if (typeof window.history != 'undefined') {
-        function handlePopState(evt) {
-            var state = evt.state || {};
+// if we support the history api
+if (typeof window.history != 'undefined') {
+    window.addEventListener('popstate', function(evt) {
+        var state = evt.state || {};
 
-            console.log('popped state: ', state);
-            if (state.route && ((! state.appid) || (state.appid === element.id))) {
-                eve(evt.state.route, app, document.location.href, false);
-            } // if
-        } // handlePopState
-
-        window.addEventListener('popstate', handlePopState, false);
-    } // if
-
-    eve.on('flipper.change', function(section, data, href) {
-        // window.history.pushState(data, document.title, href);
+        if (state.id && state.url) {
+            var flipper = flip.get(state.id);
+            if (flipper) {
+                flipper.activate(state.url, null, evt);
+            }
+        }
+    }, false);
+    
+    eve.on('flip.changed', function(newroute, oldroute, sourceEvent) {
+        // if the source event is defined and has state, it's a pop state event and should be ignored
+        if (sourceEvent && sourceEvent.state) {
+            return;
+        }
+        
+        if (newroute && newroute.url && newroute.flipper) {
+            // push the state
+            // TODO: add the url to allow it to be reloaded...
+            window.history.pushState({
+                id: newroute.flipper.id,
+                url: newroute.url
+            }, document.title);
+        }
     });
-})();
+} // if
