@@ -127,7 +127,8 @@ Flipper.prototype.init = function() {
         
     // if we have default element, then create a default route
     if (defaultElement) {
-        this.defaultRoute = new Route(defaultElement.getAttribute('data-route'), this, defaultElement);
+        var route = defaultElement.getAttribute('data-route');
+        this.defaultRoute = route ? new Route(route, this, defaultElement) : null;
     }
     
     // trigger the init event

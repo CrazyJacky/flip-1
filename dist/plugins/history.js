@@ -1,3 +1,9 @@
+// # Flip History Plugin
+
+// This plugin interfaces with the HTML5 "pushState" API.  Each time a `flip.changed` event
+// is intercepted an entry is pushed into the browser history.  Works pretty well in most
+// cases but struggles a little in the multipage demo.
+
 // if we support the history api
 if (typeof window.history != 'undefined') {
     window.addEventListener('popstate', function(evt) {
