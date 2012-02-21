@@ -1283,7 +1283,7 @@ var flip = (function() {
                 routeData;
     
             // if we have a text node, then iterate up the tree
-            while (target instanceof Text) {
+            while (target && typeof target.href == 'undefined') {
                 target = target.parentNode;
             } // while
             
