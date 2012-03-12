@@ -1,12 +1,6 @@
 var interleave = require('interleave'),
     fs = require('fs'),
-    path = require('path'),
-    aliases = {
-        'eve': 'github://DmitryBaranovskiy/eve/eve.js',
-        'interact': 'github://DamonOehlman/interact/interact.js',
-        'classtweak': 'github://DamonOehlman/classtweak/classtweak.js',
-        'when': 'github://briancavalier/when.js/when.js'
-    };
+    path = require('path');
     
 task('core', function() {
     // build the core files
@@ -14,7 +8,7 @@ task('core', function() {
     
     // build the main file with all the includes
     interleave('src/js/flip.js', {
-        aliases: aliases,
+        data: JSON.parse(fs.readFileSync(path.resolve(__dirname, 'package.json'), 'utf8')),
         after: ['uglify']
     });    
 });
@@ -22,8 +16,7 @@ task('core', function() {
 task('extras', function() {
     // build each of the css files
     interleave(['src/css/plugins', 'src/js/plugins'], {
-        path: 'dist/plugins',
-        aliases: aliases
+        path: 'dist/plugins'
     });
     
     // build the transition styles

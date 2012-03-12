@@ -3,7 +3,7 @@
     "description": "Event Driven Single Page Apps Unframework",
     "tags": ["mobile", "bootstrap"],
     "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "main": "index",
     
     "engines": {
@@ -14,7 +14,7 @@
     },
     
     "devDependencies": {
-        "interleave": "0.1.x",
+        "interleave": "0.2.x",
         "stylus": "*",
         "uglify-js": "*"
     },
