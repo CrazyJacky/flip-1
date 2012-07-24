@@ -1,6 +1,5 @@
 
-// req: eve,classtweak,when
-(function(glob) {
+define('flip', ['eve', 'classtweak', 'when'], function(eve, classtweak, when) {
     /*
      * ## qsa(selector, element)
      * 
@@ -369,7 +368,5 @@
         return _flippers[id];
     };
     
-    if (typeof flip != 'undefined') {
-        glob.flip = flip;
-    }
-}(this));
+    return typeof flip != 'undefined' ? flip : undefined;
+});

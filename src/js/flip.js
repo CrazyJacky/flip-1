@@ -1,3 +1,4 @@
+// req: eve, classtweak, when
 //= github://DamonOehlman/snippets/qsa
 
 var _flippers = {};

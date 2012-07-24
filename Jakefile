@@ -9,6 +9,12 @@ task('core', function() {
         wrap: ['glob']
     });
     
+    interleave(['src/js/*.js'], {
+        output: 'dist',
+        wrap: ['amd'],
+        targetTemplate: '<%= filename %>-<%= packageType %><%= ext %>'
+    });
+    
     /*
     // build the main file with all the includes
     interleave('src/js/flip.js', {
