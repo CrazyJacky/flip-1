@@ -1,0 +1,13 @@
+@import "../mixins/vendor"
+
+html.csstransitions .flip-ready 
+    section, .section
+        -webkit-transition: opacity 0.25s ease-in-out
+        -moz-transition: opacity 0.25s ease-in-out
+
+.flipper
+    section, .section
+        opacity 0
+
+        &.flip-active
+            opacity 1

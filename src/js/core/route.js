@@ -12,9 +12,9 @@ function Route(url, flipper, element) {
         sourceData = {};
         
         // get the state for the section
-        for (key in routable.attributes) {
+        for (key in element.attributes) {
             if (reValidAttr.test(key)) {
-                sourceData[RegExp.$1] = routable.attributes[key];
+                sourceData[RegExp.$1] = element.attributes[key];
             } // if
         } // for
     } // if

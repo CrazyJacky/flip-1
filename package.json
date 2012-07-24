@@ -2,7 +2,10 @@
     "name": "flip",
     "description": "Event Driven Single Page Apps Unframework",
     "tags": ["mobile", "bootstrap"],
-    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+    "author": {
+        "name": "Damon Oehlman",
+        "email": "damon.oehlman@sidelab.com"
+    },
     "homepage": "https://github.com/DamonOehlman/flip",
     "version": "0.2.0",
     "main": "index",
@@ -15,9 +18,8 @@
     },
     
     "devDependencies": {
-        "grunt": "~0.3.8",
-        "grunt-rigger": "0.1.x",
-        "stylus": "*"
+        "interleave": "0.5.x",
+        "stylus": "0.28.x"
     },
     
     "repository": {
